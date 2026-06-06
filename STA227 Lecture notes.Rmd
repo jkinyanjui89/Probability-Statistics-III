@@ -1,0 +1,1946 @@
+---
+title: "Probability and Statistics III"
+author: "Prof. Josphat Kinyanjui"
+date: "May 27, 2026"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    latex_engine: xelatex
+    subtitle: Lecture Notes
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: flatly
+    highlight: tango
+  word_document:
+    toc: true
+    toc_depth: '3'
+  rmdformats::readthedown:
+    highlight: tango
+    use_bookdown: true
+    toc_depth: 3
+    number_sections: true
+institute: Department of Mathematics, Statistics & Actuarial Science, Karatina University,
+  Kenya
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(tinytex)
+```
+
+# Multivariate Distribution Theory
+
+We earlier defined a random variable as a real-valued function over a sample space with a probability measure. Many different random variables can be defined over one and the same sample space.
+
+In this section we shall be concerned first with the **bivariate case**, i.e. situations where we are interested at the same time in a pair of random variables defined over a joint sample space. Later we shall extend this discussion to the **multivariate case**, covering any finite number of random variables.
+
+If $X$ and $Y$ are discrete random variables, we write the probability that $X$ will take on the value $x$ and $Y$ will take on the value $y$ as $f(x, y)$. Thus, $f(x, y)$ is the probability of the intersection of the events $X = x$ and $Y = y$.
+
+## Joint Probability Distribution (Discrete Case)
+
+### Example 1
+
+Two caplets are selected at random from a bottle containing three aspirins, two sedatives, and four laxative caplets.
+
+If $X$ and $Y$ are, respectively, the numbers of aspirin and sedative caplets included among the two caplets drawn, find the probabilities associated with all possible pairs of values of $X$ and $Y$.
+
+**Solution:**
+
+The possible pairs are $(x, y)$ where $x \in \{0, 1, 2\}$ and $y \in \{0, 1, 2\}$, subject to $x + y \leq 2$.
+
+For example, the probability associated with $(1, 0)$: we want one aspirin, zero sedatives, and hence one laxative. The number of ways is $\binom{3}{1}\binom{2}{0}\binom{4}{1}$ and the total number of ways to select two caplets from nine is $\binom{9}{2}$.
+
+Continuing this way, we obtain:
+
+| | **x = 0** | **x = 1** | **x = 2** |
+|---|---|---|---|
+| **y = 0** | $f(0,0)$ | $f(1,0)$ | $f(2,0)$ |
+| **y = 1** | $f(0,1)$ | $f(1,1)$ | 0 |
+| **y = 2** | $f(0,2)$ | 0 | 0 |
+
+It is generally preferable to represent such probabilities by means of a formula — a function $f(x, y)$ defined for any pair of values within the range of $X$ and $Y$.
+
+### Definition 1 – Joint Probability Distribution Function (Discrete)
+
+If $X$ and $Y$ are discrete random variables, the function given by $f(x, y) = P(X = x, Y = y)$ for each pair of values $(x, y)$ within the range of $X$ and $Y$ is called the **joint probability distribution function** of $X$ and $Y$.
+
+### Theorem 1
+
+A bivariate function can serve as the joint probability distribution function of a pair of discrete random variables $X$ and $Y$ if and only if its values $f(x, y)$ satisfy the conditions:
+
+1. $f(x, y) \geq 0$, for each pair of values $(x, y)$ within its domain.
+2. $\displaystyle\sum_x \sum_y f(x, y) = 1$, where the double summation extends over all possible pairs within the domain.
+
+### Example 2
+
+Determine the value of $k$ for which the function $f(x, y) = k(x + y)$ for $x = 0, 1, 2$ and $y = 0, 1, 2$ can serve as a joint probability distribution function.
+
+**Solution:**
+
+Substituting the various values of $x$ and $y$ and applying Theorem 1, we get:
+
+$$\sum_x \sum_y k(x + y) = 1$$
+
+Solving for $k$ gives the appropriate value.
+
+## Joint Distribution Function (Discrete Case)
+
+### Definition 2 – Joint CDF (Discrete)
+
+If $X$ and $Y$ are discrete random variables, the function given by
+
+$$F(x, y) = P(X \leq x, Y \leq y) = \sum_{s \leq x} \sum_{t \leq y} f(s, t)$$
+
+for $-\infty < x, y < \infty$, where $f(s, t)$ is the value of the joint probability distribution of $X$ and $Y$ at $(s, t)$, is called the **joint distribution function** or the **joint Cumulative Distribution Function (CDF)** of $X$ and $Y$.
+
+### Example 3
+
+With reference to Example 1, find $F(1, 1)$.
+
+**Solution:**
+
+As in the univariate case, the joint distribution function is defined for all real numbers. For example, $F(1, 1) = \sum_{x \leq 1} \sum_{y \leq 1} f(x, y)$.
+
+## Joint Probability Density (Continuous Case)
+
+### Definition 3 – Joint PDF (Continuous)
+
+A bivariate function with values $f(x, y)$, defined over the $xy$-plane, is called a **joint probability density function** of a continuous random variable $X$ and $Y$ if and only if
+
+$$P[(X, Y) \in A] = \iint_A f(x, y) \, dx \, dy$$
+
+for any region $A$ in the $xy$-plane.
+
+### Theorem 2
+
+A bivariate function can serve as a joint probability density function of a pair of continuous random variables $X$ and $Y$ if and only if its values $f(x, y)$ satisfy the conditions:
+
+1. $f(x, y) \geq 0$ for all $(x, y)$
+2. $\displaystyle\int_{-\infty}^{\infty}\int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1$
+
+### Example 4
+
+Given the joint probability density function $f(x, y)$ of two random variables $X$ and $Y$, find $P[(X, Y) \in A]$ where $A$ is a given region.
+
+**Solution:**
+
+$$P[(X, Y) \in A] = \iint_A f(x, y) \, dx \, dy$$
+
+## Joint CDF (Continuous Case)
+
+### Definition 4 – Joint CDF (Continuous)
+
+If $X$ and $Y$ are continuous random variables, the function given by
+
+$$F(x, y) = \int_{-\infty}^{x}\int_{-\infty}^{y} f(s, t) \, dt \, ds, \quad -\infty < x, y < \infty$$
+
+where $f(s, t)$ is the value of the joint probability density of $X$ and $Y$ at $(s, t)$, is called the **joint Cumulative Density Function** of $X$ and $Y$.
+
+Analogous to the univariate case, partial differentiation yields:
+
+$$\frac{\partial^2 F(x, y)}{\partial x \, \partial y} = f(x, y)$$
+
+wherever these partial derivatives exist.
+
+### Example 5
+
+If the joint probability density of $X$ and $Y$ is given by $f(x, y)$, find the cumulative density function.
+
+**Solution:**
+
+$$F(x, y) = \int_{-\infty}^{x}\int_{-\infty}^{y} f(s, t) \, dt \, ds$$
+
+### Example 6
+
+Find the joint probability density of the two random variables $X$ and $Y$ whose joint cumulative density function is given. Also use the joint probability density function to determine the required probability.
+
+**Solution:**
+
+(a) Since $f(x, y) = \dfrac{\partial^2 F(x,y)}{\partial x\, \partial y}$, partial differentiation yields the joint PDF.
+
+(b) The probability is evaluated by integrating $f(x,y)$ over the relevant region.
+
+For two random variables, the joint probability density is geometrically a surface, and the probability is given by the volume under this surface over the region $A$.
+
+## Multivariate Case
+
+All the definitions of this section can be generalized to the **multivariate case** with $n$ random variables. Corresponding to Definition 1, the values of the joint probability distribution of $n$ discrete random variables $X_1, X_2, \ldots, X_n$ are given by
+
+$$f(x_1, x_2, \ldots, x_n) = P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n)$$
+
+for each $n$-tuple $(x_1, \ldots, x_n)$ within the range of the random variables; and their joint distribution function is
+
+$$F(x_1, \ldots, x_n) = P(X_1 \leq x_1, \ldots, X_n \leq x_n)$$
+
+### Example 7
+
+If the joint probability distribution of three random variables $X$, $Y$, and $Z$ is given, find the specified probability.
+
+**Solution:**
+
+$$P(X = x, Y = y, Z = z) = \sum_{x}\sum_{y}\sum_{z} f(x, y, z)$$
+
+In the continuous case, probabilities are obtained by integrating the joint probability density, and the joint CDF is given by
+
+$$F(x_1, \ldots, x_n) = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n} f(t_1, \ldots, t_n) \, dt_n \cdots dt_1$$
+
+### Example 8
+
+If the trivariate probability density of $(X, Y, Z)$ is given by $f(x, y, z)$, find the probability over a specified region $A$.
+
+**Solution:**
+
+$$P[(X, Y, Z) \in A] = \iiint_A f(x, y, z) \, dz \, dy \, dx$$
+
+---
+
+##Exercises
+
+1. Given the joint probability distribution table of $X$ and $Y$ (with rows $y = 0, 1, 2, 3$ and columns $x = 0, 1, 2$), find the specified probabilities.
+
+2. If the joint probability density of $X$ and $Y$ is given, find the value of $c$, then find:
+   (a) $P(X < 1, Y < 1)$
+   (b) $P(X + Y < 1)$
+   (c) $P(X > Y)$
+
+3. Determine $k$ so that a given function can serve as a joint probability density function.
+
+4. Find $F(x, y)$ if the joint probability distribution of $X$ and $Y$ is given.
+
+5. Find $k$ if a given bivariate function can serve as a joint probability density.
+
+6. Verify the joint distribution function of a given example.
+
+7. If a trivariate probability density $f(x_1, x_2, x_3)$ is given, find the specified probability.
+
+8. A certain college gives attitude tests in the sciences and humanities. If $X$ and $Y$ are the proportions of correct answers in the two subjects, find the probabilities that a student will get:
+   (a) Less than $\frac{1}{2}$ on both tests.
+   (b) More than $\frac{1}{2}$ on the science test and less than $\frac{1}{4}$ on the humanities test.
+
+9. Suppose $P$, the price of a commodity (in dollars), and $S$, its total sales (in units), are random variables with a given joint probability density. Find the probabilities that:
+   (a) The price will be less than 30 cents and sales will exceed 10,000 units.
+   (b) The price will be between 25 cents and 30 cents and sales will be less than 6,000 units.
+
+---
+
+# Marginal and Conditional Distributions
+
+## Marginal Distributions
+
+### Definition 5 – Marginal Distribution (Discrete)
+
+If $X$ and $Y$ are discrete random variables and $f(x, y)$ is the value of their joint probability distribution at $(x, y)$, the function given by
+
+$$g(x) = \sum_{y} f(x, y), \quad \text{for each } x \text{ within the range of } X$$
+
+is called the **marginal probability distribution function** of $X$.
+
+Correspondingly, the function given by
+
+$$h(y) = \sum_{x} f(x, y), \quad \text{for each } y \text{ within the range of } Y$$
+
+is called the **marginal probability distribution function** of $Y$.
+
+### Example 9
+
+The joint probability distribution function of random variables $X$ and $Y$ is given in the table below ($x, y \in \{1, 2, 3\}$). Determine the marginal probability distribution functions of $X$ and $Y$.
+
+| | **x = 1** | **x = 2** | **x = 3** | $h(y)$ |
+|---|---|---|---|---|
+| **y = 1** | $f(1,1)$ | $f(2,1)$ | $f(3,1)$ | |
+| **y = 2** | $f(1,2)$ | $f(2,2)$ | $f(3,2)$ | |
+| **y = 3** | $f(1,3)$ | $f(2,3)$ | $f(3,3)$ | |
+| $g(x)$ | | | | |
+
+**Solution:**
+
+(i) The marginal probability distribution function of $X$: $g(x) = \sum_y f(x, y)$
+
+(ii) The marginal probability distribution function of $Y$: $h(y) = \sum_x f(x, y)$
+
+### Definition 6 – Marginal Density (Continuous)
+
+If $X$ and $Y$ are continuous random variables and $f(x, y)$ is the value of their joint probability density at $(x, y)$, the function given by
+
+$$g(x) = \int_{-\infty}^{\infty} f(x, y) \, dy$$
+
+is called the **marginal probability density function** of $X$.
+
+Correspondingly,
+
+$$h(y) = \int_{-\infty}^{\infty} f(x, y) \, dx$$
+
+is called the **marginal probability density function** of $Y$.
+
+### Example 10
+
+Given the joint probability density $f(x, y)$, find the marginal probability density functions of $X$ and $Y$.
+
+**Solution:**
+
+$$g(x) = \int_{-\infty}^{\infty} f(x, y) \, dy, \qquad h(y) = \int_{-\infty}^{\infty} f(x, y) \, dx$$
+
+## Joint Marginal Distributions (Multivariate)
+
+When dealing with more than two random variables, we can speak of **joint marginal distributions** of several of the random variables.
+
+If the joint probability of discrete random variables $X_1, X_2, \ldots, X_n$ has the value $f(x_1, x_2, \ldots, x_n)$, the marginal probability distribution function of $X_1$ alone is:
+
+$$f_1(x_1) = \sum_{x_2} \cdots \sum_{x_n} f(x_1, x_2, \ldots, x_n)$$
+
+The joint marginal probability distribution function of $X_1$ and $X_2$ is:
+
+$$f_{12}(x_1, x_2) = \sum_{x_3} \cdots \sum_{x_n} f(x_1, x_2, \ldots, x_n)$$
+
+For the **continuous case**, summations are replaced by integrals:
+
+$$f_1(x_1) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} f(x_1, \ldots, x_n) \, dx_2 \cdots dx_n$$
+
+### Example 11
+
+Considering the trivariate probability density $f(x_1, x_2, x_3)$, find:
+
+(i) The joint marginal probability density function of $X_1$ and $X_2$.
+(ii) The marginal probability density function of $X_1$ alone.
+
+**Solution:**
+
+(i) $f_{12}(x_1, x_2) = \int_{-\infty}^{\infty} f(x_1, x_2, x_3) \, dx_3$
+
+(ii) $f_1(x_1) = \int_{-\infty}^{\infty} f_{12}(x_1, x_2) \, dx_2$
+
+---
+
+## Conditional Distributions
+
+We define the conditional probability of event $A$ given event $B$ as
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{provided } P(B) > 0$$
+
+Suppose $A$ is the event $\{X = x\}$ and $B$ is the event $\{Y = y\}$. Then:
+
+$$P(X = x \mid Y = y) = \frac{f(x, y)}{h(y)}, \quad \text{provided } h(y) > 0$$
+
+### Definition 7 – Conditional Distribution (Discrete)
+
+If $f(x, y)$ is the value of the joint probability distribution of the discrete random variables $X$ and $Y$ at $(x, y)$, and $h(y)$ is the value of the marginal distribution of $Y$ at $y$, the function given by
+
+$$f(x \mid y) = \frac{f(x, y)}{h(y)}, \quad \text{for each } x \text{ within the range of } X$$
+
+is called the **conditional distribution of $X$ given $Y = y$**.
+
+Correspondingly, if $g(x)$ is the value of the marginal distribution of $X$ at $x$:
+
+$$f(y \mid x) = \frac{f(x, y)}{g(x)}, \quad \text{for each } y \text{ within the range of } Y$$
+
+is called the **conditional distribution of $Y$ given $X = x$**.
+
+### Definition 8 – Conditional Density (Continuous)
+
+If $f(x, y)$ is the value of the joint density of continuous random variables $X$ and $Y$ at $(x, y)$, and $h(y)$ is the value of the marginal density of $Y$ at $y$, the function given by
+
+$$f(x \mid y) = \frac{f(x, y)}{h(y)}, \quad \text{for } h(y) > 0$$
+
+is called the **conditional density of $X$ given $Y = y$**.
+
+Correspondingly:
+
+$$f(y \mid x) = \frac{f(x, y)}{g(x)}, \quad \text{for } g(x) > 0$$
+
+is called the **conditional density of $Y$ given $X = x$**.
+
+### Example 12
+
+Given the joint probability density $f(x, y)$, find the marginal densities of $X$ and $Y$ and the conditional density of $X$ given $Y = y$.
+
+**Solution:**
+
+$$g(x) = \int f(x, y) \, dy, \qquad h(y) = \int f(x, y) \, dx$$
+
+$$f(x \mid y) = \frac{f(x, y)}{h(y)}$$
+
+### Example 13
+
+With reference to Example 1, find:
+
+(i) The conditional distribution of $X$ given $Y = 1$.
+(ii) The conditional distribution of $Y$ given $X = 0$.
+
+**Solution:**
+
+The joint distribution together with marginal totals:
+
+| | **x = 0** | **x = 1** | **x = 2** | $h(y)$ |
+|---|---|---|---|---|
+| **y = 0** | $f(0,0)$ | $f(1,0)$ | $f(2,0)$ | |
+| **y = 1** | $f(0,1)$ | $f(1,1)$ | 0 | |
+| **y = 2** | $f(0,2)$ | 0 | 0 | |
+| $g(x)$ | | | | |
+
+(i) Conditional distribution of $X$ given $Y = 1$: $\quad f(x \mid 1) = \dfrac{f(x, 1)}{h(1)}$
+
+(ii) Conditional distribution of $Y$ given $X = 0$: $\quad f(y \mid 0) = \dfrac{f(0, y)}{g(0)}$
+
+---
+
+## Independence of Random Variables
+
+When we deal with two or more random variables, questions of **independence** are usually of great importance.
+
+If the values of the conditional distribution of $X$ given $Y = y$ do not depend on $y$, then $f(x \mid y) = g(x)$, and the formula yields:
+
+$$f(x, y) = g(x) \cdot h(y)$$
+
+That is, the values of the joint distribution are given by the products of the corresponding marginal distributions.
+
+### Definition 9 – Independence (Discrete)
+
+If $f(x_1, x_2, \ldots, x_n)$ is the value of the joint probability distribution of $n$ discrete random variables $X_1, \ldots, X_n$ at $(x_1, \ldots, x_n)$, and $f_i(x_i)$ is the value of the marginal distribution of $X_i$, then the $n$ random variables are **independent** if and only if
+
+$$f(x_1, \ldots, x_n) = f_1(x_1) \cdot f_2(x_2) \cdots f_n(x_n)$$
+
+for all $(x_1, \ldots, x_n)$ within their range.
+
+### Definition 10 – Independence (Continuous)
+
+If $f(x_1, x_2, \ldots, x_n)$ is the value of the joint probability density function of $n$ continuous random variables $X_1, \ldots, X_n$ at $(x_1, \ldots, x_n)$, and $f_i(x_i)$ is the value of the marginal density of $X_i$, then the $n$ random variables are **independent** if and only if
+
+$$f(x_1, \ldots, x_n) = f_1(x_1) \cdot f_2(x_2) \cdots f_n(x_n)$$
+
+for all $(x_1, \ldots, x_n)$ within their range.
+
+### Example 14
+
+If the joint probability density of $X$ and $Y$ is given, find:
+
+(a) The marginal density of $X$.
+(b) The marginal density of $Y$.
+(c) Whether the two random variables are independent.
+
+**Solution:**
+
+Compute $g(x) = \int f(x,y)\,dy$ and $h(y) = \int f(x,y)\,dx$. Then check whether $f(x,y) = g(x) \cdot h(y)$.
+
+If $f(x,y) \neq g(x) \cdot h(y)$, the two random variables are **not independent**.
+
+### Example 15
+
+With reference to Example 1, determine whether $X$ and $Y$ are independent.
+
+**Solution:**
+
+Using the marginal distributions obtained previously, check whether $f(x,y) = g(x) \cdot h(y)$ for all pairs. If any pair fails, $X$ and $Y$ are **not independent**.
+
+### Example 16
+
+Considering independent flips of a balanced coin, let $X_i$ be the number of heads (0 or 1) obtained on the $i$-th flip. Find the joint probability distribution of these $n$ random variables.
+
+**Solution:**
+
+Since each $X_i$ has the distribution $P(X_i = x) = \frac{1}{2}$ for $x = 0, 1$, and the random variables are independent, their joint probability distribution is:
+
+$$f(x_1, \ldots, x_n) = \prod_{i=1}^{n} \frac{1}{2} = \left(\frac{1}{2}\right)^n, \quad x_i \in \{0, 1\}$$
+
+### Example 17
+
+Given independent random variables $X_1$, $X_2$, $X_3$ with probability densities $f_1(x_1)$, $f_2(x_2)$, $f_3(x_3)$, find their joint probability density and use it to evaluate a specified probability.
+
+**Solution:**
+
+The joint probability density function is:
+
+$$f(x_1, x_2, x_3) = f_1(x_1) \cdot f_2(x_2) \cdot f_3(x_3)$$
+
+---
+
+## Exercises
+
+1. Given the joint probability distribution table of $X$ and $Y$ (with $x \in \{-1, 1\}$ and $y \in \{-1, 0, 1\}$), find:
+   (a) Marginal distribution of $X$.
+   (b) Marginal distribution of $Y$.
+   (c) Conditional distribution of $X$ given $Y = 1$.
+   (d) Conditional distribution of $Y$ given $X = 0$.
+
+2. Given the joint probability distribution $f(x, y, z)$, find:
+   - The joint marginal distribution of $X$ and $Y$.
+   - The joint marginal distribution of $X$ and $Z$.
+   - The marginal distribution of $X$.
+   - The conditional distribution of $Z$ given $X = x$ and $Y = y$.
+   - The joint conditional distribution of $Y$ and $Z$ given $X = x$.
+
+3. Given the joint probability distribution table of $X$ and $Y$, find:
+   (a) Marginal distribution of $X$.
+   (b) Marginal distribution of $Y$.
+   (c) Conditional distribution of $X$ given $Y = -1$.
+
+4. Check whether $X$ and $Y$ are independent for given joint distributions.
+
+5. If the joint probability density of $X$ and $Y$ is given, find:
+   - The marginal density of $X$.
+   - The conditional density of $Y$ given $X = x$.
+
+6. If $X$ is the proportion of persons responding to one kind of mail-order solicitation and $Y$ to another, find the probabilities that:
+   - At least 30% will respond to the first kind.
+   - At most 50% will respond to the second kind given a 20% response to the first.
+
+7. If $X$ is the money (in dollars) a salesperson spends on gasoline per day and $Y$ is the corresponding reimbursement, find:
+   - The marginal density of $X$.
+   - The conditional density of $Y$ given $X = x$.
+   - The probability that the salesperson will be reimbursed at least \$8 when spending \$12.
+
+8. The useful life (in hours) of a vacuum tube is a random variable with probability density $f(x)$. If three tubes operate independently, find:
+   (a) The joint probability density of their lifetimes $(X_1, X_2, X_3)$.
+   (b) The value of $P(X_1 < X_2 < X_3)$ (or as specified).
+
+---
+
+# The Bivariate Normal Distribution
+
+Among multivariate densities of special importance is the **multivariate normal distribution**, which is a generalization of the normal distribution in one variable.
+
+## Definition and Properties
+
+### Definition 1 – Bivariate Normal Distribution
+
+A pair of random variables $X$ and $Y$ have a **bivariate normal distribution** and are referred to as **jointly normally distributed** random variables, if and only if their joint probability density is given by:
+
+$$f(x, y) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}} \exp\!\left\{-\frac{1}{2(1-\rho^2)}\left[\frac{(x-\mu_1)^2}{\sigma_1^2} - \frac{2\rho(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2} + \frac{(y-\mu_2)^2}{\sigma_2^2}\right]\right\}$$
+
+where $-1 < \rho < 1$.
+
+To study this joint distribution, we first show that the parameters $\mu_1, \mu_2$ are the means and $\sigma_1, \sigma_2$ are the standard deviations of $X$ and $Y$ respectively.
+
+Integrating on $y$ from $-\infty$ to $\infty$ gives the **marginal density of $X$**. After completing the square and simplifying:
+
+$$g(x) = \frac{1}{\sigma_1\sqrt{2\pi}} e^{-\frac{(x-\mu_1)^2}{2\sigma_1^2}}$$
+
+which is a **normal distribution** with mean $\mu_1$ and standard deviation $\sigma_1$. By symmetry, the marginal density of $Y$ is a normal distribution with mean $\mu_2$ and standard deviation $\sigma_2$.
+
+The parameter $\rho$ is called the **correlation coefficient**, and it can be shown that $-1 < \rho < 1$. It measures how the two random variables $X$ and $Y$ vary together.
+
+## Conditional Distributions
+
+### Theorem 1 – Conditional Distributions of the Bivariate Normal
+
+If $X$ and $Y$ have a bivariate normal distribution, the **conditional density of $Y$ given $X = x$** is a normal distribution with:
+
+- **Mean:** $\mu_2 + \rho\dfrac{\sigma_2}{\sigma_1}(x - \mu_1)$
+- **Variance:** $\sigma_2^2(1 - \rho^2)$
+
+And the **conditional density of $X$ given $Y = y$** is a normal distribution with:
+
+- **Mean:** $\mu_1 + \rho\dfrac{\sigma_1}{\sigma_2}(y - \mu_2)$
+- **Variance:** $\sigma_1^2(1 - \rho^2)$
+
+**Proof:**
+
+Writing $f(y \mid x) = \dfrac{f(x, y)}{g(x)}$ and simplifying the exponent, one arrives at a normal density with the stated mean and variance. The corresponding result for the conditional density of $X$ given $Y = y$ follows by symmetry.
+
+## Key Theorems
+
+### Theorem 2 – Independence in the Bivariate Normal
+
+If two random variables have a bivariate normal distribution, they are **independent if and only if $\rho = 0$**.
+
+**Proof:** (exercise)
+
+> **Remark:** When $\rho = 0$, the random variables are said to be **uncorrelated**. Note that the marginal distributions may both be normal without the joint distribution being bivariate normal — the converse does not necessarily hold.
+
+## Examples
+
+### Example 1
+
+In a certain population of married couples, the height $X$ (in meters) of the husband and the height $Y$ of the wife have a bivariate normal distribution with given parameters.
+
+(i) Find the mean and the variance of the height for the husbands and wives.
+(ii) Find the expected height and variance of the husband whose wife is expected to be 1.55 m tall.
+
+**Solution:**
+
+(i) Comparing the given density with the general formula, we identify:
+
+$$\mu_1 = \ldots, \quad \sigma_1 = \ldots, \quad \mu_2 = \ldots, \quad \sigma_2 = \ldots, \quad \rho = \ldots$$
+
+(ii) By Theorem 1, the conditional mean of $X$ given $Y = 1.55$ is:
+
+$$E(X \mid Y = 1.55) = \mu_1 + \rho\frac{\sigma_1}{\sigma_2}(1.55 - \mu_2)$$
+
+The conditional variance of $X$ given $Y = y$ is:
+
+$$\text{Var}(X \mid Y = y) = \sigma_1^2(1 - \rho^2)$$
+
+### Example 2
+
+Let $X$ and $Y$ have a bivariate normal distribution with parameters $\mu_1, \mu_2, \sigma_1, \sigma_2, \rho$.
+
+Find:
+
+(i) $P(\ldots)$ [2 marks]
+(ii) $P(\ldots \mid X = 74)$ [6 marks]
+
+**Solution:**
+
+(i) Compute using the standard normal CDF.
+
+(ii) The conditional distribution of $Y$ given $X = 74$ is normal with:
+
+$$\text{Mean} = \mu_2 + \rho\frac{\sigma_2}{\sigma_1}(74 - \mu_1), \qquad \text{Variance} = \sigma_2^2(1 - \rho^2)$$
+
+Hence, standardize and use the standard normal table to find the required probability.
+
+---
+
+## Exercises
+
+1. If the exponent of $e$ of a bivariate normal density is given, find:
+   (a) The parameters $\mu_1, \mu_2, \sigma_1, \sigma_2, \rho$.
+   (b) The required probability.
+
+2. If the exponent of $e$ of a bivariate normal density is given, find $P(Y < y_0 \mid X = x_0)$.
+
+3. If $X$ and $Y$ have a bivariate normal distribution with specified parameters, find $P(\ldots)$.
+
+4. If $U$ and $V$ have a bivariate normal distribution, and $U = aX + b$, $V = cY + d$, find an expression for the correlation coefficient of $U$ and $V$.
+
+5. If $X$ and $Y$ have a bivariate normal distribution, their joint moment-generating function is given by:
+
+$$M(t_1, t_2) = \exp\!\left(\mu_1 t_1 + \mu_2 t_2 + \tfrac{1}{2}\sigma_1^2 t_1^2 + \rho\sigma_1\sigma_2 t_1 t_2 + \tfrac{1}{2}\sigma_2^2 t_2^2\right)$$
+
+Verify that:
+   - The first partial derivative with respect to $t_1$ at $t_1 = t_2 = 0$ equals $\mu_1$.
+   - The second partial derivative with respect to $t_1^2$ at $t_1 = t_2 = 0$ equals $\mu_1^2 + \sigma_1^2$.
+   - The second partial derivative with respect to $t_1$ and $t_2$ at $t_1 = t_2 = 0$ equals $\mu_1\mu_2 + \rho\sigma_1\sigma_2$.
+
+6. Suppose that $X$ and $Y$, the height and weight of certain animals, have a bivariate normal distribution with $\mu_1 = 22$ inches, $\mu_2 = 15$ pounds, $\sigma_1 = 2$ inches, $\sigma_2 = 3$ pounds, and $\rho = 0.80$. Find:
+   (a) The expected weight of an animal that is 25 inches tall. **[14.5 pounds]**
+   (b) The expected height of an animal that weighs 20 pounds. **[23.625 inches]**
+   
+# Transformation of Random Variables {#week4}
+
+We concern ourselves with the problem of finding the probability distributions or densities of **functions of one or more random variables**. Given a set of random variables $X_1, X_2, \ldots, X_n$ and their joint probability or density, we are interested in finding the joint probability distribution of some random variable:
+
+$$Y = u(X_1, X_2, \ldots, X_n)$$
+
+This means the values of $Y$ are related to those of the $X$'s by the equation $y = u(x_1, x_2, \ldots, x_n)$.
+
+Several methods are available for solving this kind of problem. The ones we discuss are:
+
+1. The **Distribution Function Technique**
+2. The **Transformation Technique**
+3. The **Moment-Generating Function Technique**
+
+---
+
+## The Distribution Function Technique {#dist-fn-technique}
+
+A straightforward method of obtaining the probability density of a function of continuous random variables consists of:
+
+1. First finding its **distribution function**, then
+2. Finding its **probability density by differentiation**.
+
+Thus, if $X_1, X_2, \ldots, X_n$ are continuous random variables with a given joint probability density, the probability density of $Y = u(X_1, X_2, \ldots, X_n)$ is obtained by first determining:
+
+$$F_Y(y) = \Pr(Y \leq y) = \Pr\!\left[u(X_1, X_2, \ldots, X_n) \leq y\right]$$
+
+and then differentiating to get:
+
+$$f(y) = \frac{d}{dy} F(y)$$
+
+### Example 1 {#ex1}
+
+**Problem:** The probability density of $X$ is given by:
+
+$$f(x) = \begin{cases} 6x(1 - x), & 0 < x < 1 \\ 0, & \text{elsewhere} \end{cases}$$
+
+Find the probability density of $Y = X^3$.
+
+**Solution:**
+
+Letting $G(y)$ denote the distribution function of $Y$:
+
+$$G(y) = \Pr(Y \leq y) = \Pr(X^3 \leq y) = \Pr\!\left(X \leq y^{1/3}\right)$$
+
+$$= \int_0^{y^{1/3}} 6x(1-x)\, dx = 3y^{2/3} - 2y$$
+
+Differentiating:
+
+$$g(y) = \frac{d}{dy} G(y) = 2y^{-1/3} - 2 = \frac{2}{3}\left(y^{-1/3} - 1\right) \cdot 3 = 2\left(y^{-1/3} - 1\right)$$
+
+More precisely:
+
+$$g(y) = \frac{1}{3}\left(2y^{-1/3} - 2\right)$$
+
+$$\boxed{g(y) = \begin{cases} \frac{1}{3}(2y^{-1/3} - 2), & 0 < y < 1 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+### Example 2 {#ex2}
+
+**Problem:** If $Y = |X|$, show that:
+
+$$g(y) = \begin{cases} f(y) + f(-y), & y > 0 \\ 0, & \text{elsewhere} \end{cases}$$
+
+where $f(x)$ is the probability density of $X$.
+
+**Solution:**
+
+For $y > 0$:
+
+$$G(y) = \Pr(Y \leq y) = \Pr(|X| \leq y) = \Pr(-y \leq X \leq y) = F(y) - F(-y)$$
+
+Differentiating:
+
+$$g(y) = \frac{d}{dy}\left[F(y) - F(-y)\right] = f(y) \cdot 1 - f(-y) \cdot (-1) = f(y) + f(-y)$$
+
+Since $X$ cannot be negative, $g(y) = 0$ for $y < 0$. Letting $g(0) = 0$:
+
+$$\boxed{g(y) = \begin{cases} f(y) + f(-y), & y > 0 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+### Example 3 {#ex3}
+
+**Problem:** Given the joint density of $X_1$ and $X_2$:
+
+$$f(x_1, x_2) = \begin{cases} 6e^{-x_1 - 2x_2}, & x_1 > 0,\ x_2 > 0 \\ 0, & \text{elsewhere} \end{cases}$$
+
+Find the probability density of $Y = X_1 + X_2$.
+
+**Solution:**
+
+Integrating the joint density over the region where $x_1 + x_2 \leq y$:
+
+$$F(y) = \int_0^y \int_0^{y - x_1} 6e^{-x_1 - 2x_2}\, dx_2\, dx_1$$
+
+After integration:
+
+$$F(y) = 1 - 2e^{-y} + 3e^{-2y} - 2e^{-3y} \quad \text{(after simplification)}$$
+
+Differentiating gives the density:
+
+$$\boxed{f(y) = \begin{cases} 6e^{-2y} - 6e^{-3y}, & y > 0 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+---
+
+## Exercises — Week 4 {#ex-week4}
+
+1. If $f(x) = 2xe^{-x^2}$ for $x > 0$ (0 elsewhere) and $Y = X^2$, find:
+   - (a) The distribution function of $Y$: $G(y) = 1 - e^{-y}$, $y > 0$
+   - (b) The probability density of $Y$: $g(y) = e^{-y}$, $y > 0$
+
+2. If $X$ has an exponential distribution with parameter $\lambda$, use the distribution function technique to find the p.d.f. of $Y = \ln X$.
+
+3. If $X$ has the uniform density with $\alpha = 0$ and $\beta = 1$, find the p.d.f. of $Y = \sqrt{X}$:
+$$g(y) = \begin{cases} 2y, & 0 < y < 1 \\ 0, & \text{elsewhere} \end{cases}$$
+
+4. If the joint p.d.f. of $X$ and $Y$ is $f(x,y) = 4xye^{-(x^2+y^2)}$ for $x,y > 0$ (0 elsewhere) and $Z = X^2 + Y^2$, find:
+   - (a) The distribution function of $Z$
+   - (b) The probability density of $Z$
+
+5. If $X_1$ and $X_2$ are independent exponential random variables with parameters $\lambda_1$ and $\lambda_2$, find the p.d.f. of $Y = X_1 + X_2$ when:
+   - (a) $\lambda_1 \neq \lambda_2$: $f(y) = \dfrac{\lambda_1\lambda_2}{\lambda_1 - \lambda_2}\left(e^{-\lambda_2 y} - e^{-\lambda_1 y}\right)$, $y > 0$
+   - (b) $\lambda_1 = \lambda_2 = \lambda$: $f(y) = \lambda^2 y e^{-\lambda y}$, $y > 0$
+
+6. With reference to Exercise 5 (when $\lambda_1 \neq \lambda_2$), show that $Z = \dfrac{X_1}{X_1 + X_2}$ has a uniform density with $\alpha = 0$, $\beta = 1$.
+
+7. If the joint density of $X$ and $Y$ is $f(x,y) = e^{-(x+y)}$ for $x,y > 0$ (0 elsewhere) and $Z = \dfrac{X+Y}{2}$, find the p.d.f. of $Z$ using the distribution function technique.
+
+8. The percentages of copper and iron in a certain ore are $X_1$ and $X_2$ respectively. Their joint density is:
+$$f(x_1, x_2) = \begin{cases} 5, & 0 \leq x_1 \leq 1,\ 0 \leq x_2 \leq \frac{2-x_1}{2} \\ 0, & \text{elsewhere} \end{cases}$$
+Find the p.d.f. of $Y = X_1 + X_2$ and $E(Y)$.
+
+$$g(y) = \begin{cases} \tfrac{11}{9}\cdot\tfrac{y}{2}, & 0 \leq y < 1 \\ \tfrac{3(2-y)(7-4y)}{22}, & 1 \leq y \leq 2 \\ 0, & \text{elsewhere} \end{cases}$$
+
+---
+
+# Transformation Technique {#week5}
+
+## One Variable {#one-var}
+
+We can determine the probability distribution or density of a function of a random variable **without first finding its distribution function**.
+
+### Discrete Case
+
+In the discrete case, when the relationship between the values of $X$ and $Y = u(X)$ is **one-to-one**, we simply make the appropriate substitution.
+
+### Example 4 {#ex4}
+
+**Problem:** If $X$ is the number of heads in four tosses of a fair coin, find the probability distribution of:
+
+$$Y = \frac{1}{X + 1}$$
+
+**Solution:**
+
+Using the binomial distribution with $n = 4$, $p = \frac{1}{2}$:
+
+| $x$ | 0 | 1 | 2 | 3 | 4 |
+|-----|---|---|---|---|---|
+| $f(x)$ | $\frac{1}{16}$ | $\frac{4}{16}$ | $\frac{6}{16}$ | $\frac{4}{16}$ | $\frac{1}{16}$ |
+
+Applying $y = \frac{1}{x+1}$:
+
+| $y$ | 1 | $\frac{1}{2}$ | $\frac{1}{3}$ | $\frac{1}{4}$ | $\frac{1}{5}$ |
+|-----|---|---|---|---|---|
+| $g(y)$ | $\frac{1}{16}$ | $\frac{4}{16}$ | $\frac{6}{16}$ | $\frac{4}{16}$ | $\frac{1}{16}$ |
+
+Substituting $x = \frac{1}{y} - 1$ into the binomial formula directly:
+
+$$g(y) = \binom{4}{\frac{1}{y}-1}\left(\frac{1}{2}\right)^4, \quad y = 1, \tfrac{1}{2}, \tfrac{1}{3}, \tfrac{1}{4}, \tfrac{1}{5}$$
+
+> **Note:** The probabilities remain unchanged — only the variable changes from $X$ to $Y$.
+
+### Example 5 — Non One-to-One Case {#ex5}
+
+**Problem:** Find the probability distribution of $Z = (X - 2)^2$ where $X$ is as in Example 4.
+
+**Solution:**
+
+| $x$ | 0 | 1 | 2 | 3 | 4 |
+|-----|---|---|---|---|---|
+| $(x-2)^2 = z$ | 4 | 1 | 0 | 1 | 4 |
+
+Solving $x = 2 \pm \sqrt{z}$ and summing probabilities for each $z$:
+
+$$h(0) = f(2) = \frac{6}{16} = \frac{3}{8}$$
+
+$$h(1) = f(1) + f(3) = \frac{4}{16} + \frac{4}{16} = \frac{8}{16} = \frac{1}{2}$$
+
+$$h(4) = f(0) + f(4) = \frac{1}{16} + \frac{1}{16} = \frac{2}{16} = \frac{1}{8}$$
+
+| $z$ | 0 | 1 | 4 |
+|-----|---|---|---|
+| $h(z)$ | $\frac{3}{8}$ | $\frac{1}{2}$ | $\frac{1}{8}$ |
+
+### Continuous Case — Theorem 1 {#theorem1}
+
+> **Theorem 1:** Let $f(x)$ be the probability density of the continuous random variable $X$. If $y = u(x)$ is differentiable and either **strictly increasing or strictly decreasing** for all values where $f(x) > 0$, then the equation $y = u(x)$ can be uniquely solved for $x = w(y)$, and the probability density of $Y = u(X)$ is:
+>
+> $$g(y) = f[w(y)] \cdot \left|w'(y)\right|, \quad \text{provided } u'(x) \neq 0$$
+>
+> and $g(y) = 0$ elsewhere.
+
+**Proof sketch:** For the increasing case, $\Pr(a < Y < b) = \Pr(w(a) < X < w(b))$. Changing variables $x = w(y)$, $dx = w'(y)\,dy$ in the integral yields $g(y) = f[w(y)] \cdot |w'(y)|$. The decreasing case follows similarly, with the absolute value ensuring positivity. $\square$
+
+### Example 6 {#ex6}
+
+**Problem:** If $X$ has the exponential distribution $f(x) = e^{-x}$ for $x > 0$ (0 elsewhere), find the p.d.f. of $Y = \sqrt{X}$.
+
+**Solution:**
+
+The inverse is $x = y^2$, so $w(y) = y^2$ and $w'(y) = 2y$.
+
+$$g(y) = f(y^2) \cdot |2y| = e^{-y^2} \cdot 2y = 2ye^{-y^2}$$
+
+$$\boxed{g(y) = \begin{cases} 2ye^{-y^2}, & y > 0 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+### Example 7 — Cauchy Distribution {#ex7}
+
+**Problem:** A spinner gives angle $\Theta$ with uniform density $f(\theta) = \frac{1}{2\pi}$ for $-\frac{\pi}{2} < \theta < \frac{\pi}{2}$ (0 elsewhere). Find the density of $X = a\tan\Theta$, the abscissa on the $x$-axis.
+
+**Solution:**
+
+The inverse is $\theta = \arctan(x/a)$, so:
+
+$$\frac{d\theta}{dx} = \frac{a}{a^2 + x^2}$$
+
+$$g(x) = \frac{1}{2\pi} \cdot \frac{a}{a^2 + x^2} \cdot 2\pi = \frac{a}{\pi(a^2 + x^2)} \quad \text{for } -\infty < x < \infty$$
+
+This is the **Cauchy distribution**.
+
+---
+
+## Several Variables {#several-vars}
+
+### Motivation {#motivation}
+
+Given the joint distribution of $X_1$ and $X_2$, we want the distribution of $Y = u(X_1, X_2)$.
+
+**Strategy:** Introduce an auxiliary variable $Z$ (e.g., $Z = X_2$), find the joint density of $(Y, Z)$, then integrate out $Z$ to obtain the marginal density of $Y$.
+
+### Theorem 2 — Jacobian Transformation {#theorem2}
+
+> **Theorem 2:** Let $f(x_1, x_2)$ be the joint probability density of the continuous random variables $X_1$ and $X_2$. If:
+>
+> $$y_1 = u_1(x_1, x_2) \quad \text{and} \quad y_2 = u_2(x_1, x_2)$$
+>
+> are partially differentiable and define a **one-to-one transformation**, with inverse $x_i = w_i(y_1, y_2)$, then the joint density of $Y_1 = u_1(X_1, X_2)$ and $Y_2 = u_2(X_1, X_2)$ is:
+>
+> $$g(y_1, y_2) = f[w_1(y_1, y_2),\ w_2(y_1, y_2)] \cdot |J|$$
+>
+> where the **Jacobian** is:
+>
+> $$J = \begin{vmatrix} \dfrac{\partial x_1}{\partial y_1} & \dfrac{\partial x_1}{\partial y_2} \\[8pt] \dfrac{\partial x_2}{\partial y_1} & \dfrac{\partial x_2}{\partial y_2} \end{vmatrix}$$
+
+### Example 8 — Poisson Sum {#ex8}
+
+**Problem:** $X_1$ and $X_2$ are independent Poisson random variables with parameters $\lambda_1$ and $\lambda_2$. Find the distribution of $Y = X_1 + X_2$.
+
+**Solution:**
+
+Their joint distribution is:
+
+$$f(x_1, x_2) = \frac{e^{-\lambda_1}\lambda_1^{x_1}}{x_1!} \cdot \frac{e^{-\lambda_2}\lambda_2^{x_2}}{x_2!}$$
+
+Setting $y = x_1 + x_2$ (so $x_1 = y - x_2$) and summing over $x_2 = 0, 1, \ldots, y$:
+
+$$h(y) = \sum_{x_2=0}^{y} \frac{e^{-(\lambda_1+\lambda_2)}\lambda_1^{y-x_2}\lambda_2^{x_2}}{(y-x_2)!\, x_2!} = \frac{e^{-(\lambda_1+\lambda_2)}(\lambda_1+\lambda_2)^y}{y!}$$
+
+using the binomial expansion $(\lambda_1 + \lambda_2)^y = \sum_{x_2=0}^{y}\binom{y}{x_2}\lambda_1^{y-x_2}\lambda_2^{x_2}$.
+
+> **Conclusion:** The sum of two independent Poisson random variables with parameters $\lambda_1$ and $\lambda_2$ is Poisson with parameter $\lambda_1 + \lambda_2$.
+
+### Example 9 — Exponential to Beta/Gamma {#ex9}
+
+**Problem:** Given joint density $f(x_1, x_2) = e^{-(x_1+x_2)}$ for $x_1, x_2 > 0$ (0 elsewhere), find:
+
+- (a) The joint density of $Y_1 = X_1 + X_2$ and $Y_2 = \dfrac{X_1}{X_1 + X_2}$
+- (b) The marginal density of $Y_2$
+
+**Solution (a):**
+
+Solving: $x_1 = y_1 y_2$ and $x_2 = y_1(1 - y_2)$.
+
+$$J = \begin{vmatrix} y_2 & y_1 \\ 1-y_2 & -y_1 \end{vmatrix} = -y_1 y_2 - y_1(1-y_2) = -y_1$$
+
+$$|J| = y_1$$
+
+$$g(y_1, y_2) = e^{-y_1 y_2 - y_1(1-y_2)} \cdot y_1 = y_1 e^{-y_1}$$
+
+$$\boxed{g(y_1, y_2) = \begin{cases} y_1 e^{-y_1}, & y_1 > 0,\ 0 < y_2 < 1 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+**Solution (b):**
+
+$$h(y_2) = \int_0^\infty y_1 e^{-y_1}\, dy_1 = \Gamma(2) = 1! = 1$$
+
+$$\boxed{h(y_2) = \begin{cases} 1, & 0 < y_2 < 1 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+This is the **uniform distribution** on $(0, 1)$.
+
+### Example 10 — Triangular Distribution {#ex10}
+
+**Problem:** $f(x_1, x_2) = 1$ for $0 < x_1 < 1$, $0 < x_2 < 1$ (0 elsewhere). Find the marginal density of $Y = X_1 + X_2$.
+
+**Solution:**
+
+Let $Y = X_1 + X_2$ and $Z = X_2$. Then $x_1 = y - z$, $x_2 = z$, $|J| = 1$.
+
+The region maps to $z < y < z+1$, $0 < z < 1$, i.e., $z < y < z+1$.
+
+Integrating out $z$:
+
+$$h(y) = \begin{cases} \int_0^y dz = y, & 0 \leq y < 1 \\[4pt] \int_{y-1}^{1} dz = 2 - y, & 1 \leq y \leq 2 \\[4pt] 0, & \text{elsewhere} \end{cases}$$
+
+This is the **triangular distribution**.
+
+### Example 11 — Three Variables {#ex11}
+
+**Problem:** $f(x_1, x_2, x_3) = e^{-(x_1+x_2+x_3)}$ for $x_i > 0$ (0 elsewhere). Find the marginal density of $Y_1 = X_1 + X_2 + X_3$.
+
+**Solution:**
+
+Let $Y_2 = X_2$ and $Y_3 = X_3$. Then $x_1 = y_1 - y_2 - y_3$, $x_2 = y_2$, $x_3 = y_3$. The $3\times 3$ Jacobian equals 1.
+
+$$g(y_1, y_2, y_3) = e^{-y_1}, \quad y_1 > y_2 + y_3,\ y_2, y_3 > 0$$
+
+Integrating out $y_2$ and $y_3$:
+
+$$h(y_1) = \int_0^{y_1}\int_0^{y_1 - y_3} e^{-y_1}\, dy_2\, dy_3 = \frac{1}{2}y_1^2 e^{-y_1}$$
+
+$$\boxed{h(y_1) = \begin{cases} \dfrac{1}{2}y_1^2 e^{-y_1}, & y_1 > 0 \\ 0, & \text{elsewhere} \end{cases}}$$
+
+This is a **Gamma distribution** with $\alpha = 3$ and $\beta = 1$.
+
+---
+
+## Exercises — Week 5 {#ex-week5}
+
+1. If $X$ has a hypergeometric distribution with $m=3$, $N=6$, $n=2$, find the p.d. of $Z = (X-1)^2$.
+   $$h(0) = \frac{3}{5}, \quad h(1) = \frac{2}{5}$$
+
+2. If $X$ has a binomial distribution with $n=3$, $p=\frac{1}{3}$, find the p.d. of:
+   - (a) $Y = \dfrac{X}{X+1}$: $g(0) = \frac{8}{27}$, $g(\frac{1}{2}) = \frac{12}{27}$, $g(\frac{2}{3}) = \frac{6}{27}$, $g(\frac{3}{4}) = \frac{1}{27}$
+   - (b) $U = (X-1)^4$: $g(0) = \frac{12}{27}$, $g(1) = \frac{14}{27}$, $g(16) = \frac{1}{27}$
+
+3. If $X = \ln(Y)$ has a normal distribution with mean $\mu$ and std dev $\sigma$, find the p.d.f. of $Y$ (the **log-normal distribution**):
+$$g(y) = \frac{1}{\sqrt{2\pi}\,\sigma y} \exp\!\left(-\frac{(\ln y - \mu)^2}{2\sigma^2}\right), \quad y > 0$$
+
+4. If $f(x) = kx^3(1-x^2)^6$ for $0 < x < 1$ (0 elsewhere), find the p.d.f. of $Y = X^2$. Show it is a Beta distribution and find $k$.
+
+   The distribution is Beta with $\alpha = 4$, $\beta = 2$; $k = 320$.
+
+5. If $X$ has a uniform density with $\alpha=0$, $\beta=1$, show that $Y = -2\ln X$ has a **gamma distribution**. Find its parameters.
+
+6. If $X$ has a uniform density with $\alpha=0$, $\beta=1$, show that $Y = X^{-1/\alpha}$ (for $\alpha > 0$) has the **Pareto distribution**.
+
+7. Consider $X \sim \text{Uniform}(-1, 3)$:
+   - (a) Find the p.d.f. of $Y = |X|$:
+     $g(y) = \frac{1}{4}$ for $0 \leq y < 1$; $g(y) = \frac{1}{4}$ for $1 \leq y < 3$
+   - (b) Find the p.d.f. of $Z = (X-Y)^2 = (X - |X|)^2$.
+
+8. If $f(x_1, x_2) = \dfrac{x_1 x_2}{36}$ for $x_1, x_2 = 1, 2, 3$, find the p.d. of:
+   - (a) $X_1 X_2$
+   - (b) $X_1 / X_2$
+
+9. With the same joint distribution as in Exercise 8, find:
+   - (a) The joint distribution of $Y_1 = X_1 + X_2$ and $Y_2 = X_1 - X_2$
+   - (b) The marginal distribution of $Y_1$:
+     $g(2) = \frac{1}{36}$, $g(3) = \frac{4}{36}$, $g(4) = \frac{10}{36}$, $g(5) = \frac{12}{36}$, $g(6) = \frac{9}{36}$
+
+10. If $X_1$, $X_2$, $X_3$ have the multinomial distribution with $n=2$, $\theta_1=\frac{1}{4}$, $\theta_2=\frac{1}{2}$, $\theta_3=\frac{5}{12}$, find the joint p.d. of $Y_1 = X_1 + X_2$, $Y_2 = X_1 - X_2$, $Y_3 = X_3$.
+
+11. If $X_1$ and $X_2$ are independent binomial with parameters $(n_1, \theta)$ and $(n_2, \theta)$, show that $Y = X_1 + X_2$ is binomial with parameters $(n_1 + n_2, \theta)$.
+
+12. If $X$ and $Y$ are independent standard normal, show that $Z = X + Y$ is normally distributed. Find the mean and variance.
+    $\mu = 0$, $\sigma^2 = 2$
+
+13. Given $f(x, y) = 12y(1-x-y)$ for $0 < x < 1$, $0 < y < 1-x$ (0 elsewhere):
+    - (a) Find the joint density of $Z = XY$ and $U = Y$
+    - (b) Find the marginal density of $Z$: $h(z) = 6z - 6z^2 - 12z^2$ for $0 < z < 1$
+
+14. Two independent Cauchy random variables $X_1$ and $X_2$ with density $f(x) = \dfrac{1}{\pi(1+x^2)}$:
+    - (a) Find the joint density of $Y_1 = X_1 + X_2$ and $Y_2 = X_1 - X_2$
+    - (b) Find the marginal density of $Y_1$: $g(y_1) = \dfrac{1}{\pi(4 + y_1^2)} \cdot 4$
+
+15. Given $f(x,y) = 24xy$ for $0 < x < 1$, $0 < y < 1$, $x + y < 1$, find the joint density of $Z = X+Y$ and $W = X$.
+
+16. Let $X$ and $Y$ be independent gamma random variables. Find the joint density of $U = \dfrac{X}{X+Y}$ and $V = X+Y$, and identify the marginal density of $U$.
+
+17. The Maxwell–Boltzmann velocity distribution is $f(v) = kv^2 e^{-\beta v^2}$ for $v > 0$. Show that kinetic energy $E = \frac{1}{2}mV^2$ has a **gamma distribution**.
+
+---
+
+# Moment-Generating Function Technique {#week6}
+
+## Overview {#mgf-overview}
+
+Moment-generating functions provide an elegant tool for finding the distribution of **linear combinations of independent random variables**.
+
+The method is based on the uniqueness of the MGF: if $M_Y(t) = M_Z(t)$ for all $t$ in some interval, then $Y$ and $Z$ have the same distribution.
+
+## Theorem 3 — MGF of a Sum {#theorem3}
+
+> **Theorem 3:** If $X_1, X_2, \ldots, X_n$ are **independent** random variables and $Y = X_1 + X_2 + \cdots + X_n$, then:
+>
+> $$M_Y(t) = \prod_{i=1}^{n} M_{X_i}(t)$$
+
+**Proof:**
+
+$$M_Y(t) = E\!\left[e^{tY}\right] = E\!\left[e^{t(X_1 + \cdots + X_n)}\right] = E\!\left[e^{tX_1}\right] \cdots E\!\left[e^{tX_n}\right] = \prod_{i=1}^{n} M_{X_i}(t)$$
+
+(using independence). $\square$
+
+## Example 12 — Sum of Poisson Variables {#ex12}
+
+**Problem:** $X_1, \ldots, X_n$ are independent Poisson with parameters $\lambda_1, \ldots, \lambda_n$. Find the distribution of $Y = X_1 + \cdots + X_n$.
+
+**Solution:**
+
+The MGF of a Poisson$(\lambda_i)$ is $M_{X_i}(t) = e^{\lambda_i(e^t - 1)}$. By Theorem 3:
+
+$$M_Y(t) = \prod_{i=1}^n e^{\lambda_i(e^t-1)} = e^{(\lambda_1 + \cdots + \lambda_n)(e^t - 1)}$$
+
+> **Conclusion:** $Y \sim \text{Poisson}(\lambda_1 + \lambda_2 + \cdots + \lambda_n)$.
+
+## Example 13 — Sum of Exponential Variables {#ex13}
+
+**Problem:** $X_1, \ldots, X_n$ are i.i.d. Exponential$(\lambda)$ (equivalently Gamma$(1, \lambda)$). Find the distribution of $Y = \sum X_i$.
+
+**Solution:**
+
+The MGF of Gamma$(\alpha, \beta)$ is $M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha}$. For Exponential$(\lambda)$:
+
+$$M_{X_i}(t) = \left(1 - \frac{t}{\lambda}\right)^{-1}$$
+
+$$M_Y(t) = \left(1 - \frac{t}{\lambda}\right)^{-n}$$
+
+> **Conclusion:** $Y \sim \text{Gamma}(n, \lambda)$ with p.d.f.:
+>
+> $$g(y) = \frac{\lambda^n}{\Gamma(n)} y^{n-1} e^{-\lambda y}, \quad y > 0$$
+
+## Applied Example — Lake Victoria Fish {#ex-fish}
+
+**Setup:** The number of fish caught per hour at Lake Victoria follows $\text{Poisson}(\lambda = 1.6)$.
+
+### (a) Four fish in two hours {-}
+
+Let $Y = X_1 + X_2 \sim \text{Poisson}(3.2)$:
+
+$$P(Y = 4) = \frac{e^{-3.2}(3.2)^4}{4!} = \frac{0.04076 \times 104.86}{24} \approx \mathbf{0.1781}$$
+
+### (b) At least two fish in three hours {-}
+
+Let $Y = X_1 + X_2 + X_3 \sim \text{Poisson}(4.8)$:
+
+$$P(Y \geq 2) = 1 - P(Y = 0) - P(Y = 1)$$
+
+$$P(Y = 0) = e^{-4.8} \approx 0.00823, \quad P(Y = 1) = 4.8e^{-4.8} \approx 0.03950$$
+
+$$P(Y \geq 2) = 1 - 0.04773 \approx \mathbf{0.9523}$$
+
+### (c) At most three fish in four hours {-}
+
+Let $Y = X_1 + X_2 + X_3 + X_4 \sim \text{Poisson}(6.4)$:
+
+$$P(Y \leq 3) = \sum_{y=0}^{3} \frac{e^{-6.4}(6.4)^y}{y!}$$
+
+$$= 0.00166 + 0.01063 + 0.03403 + 0.07253 \approx \mathbf{0.1189}$$
+
+---
+
+## Chebyshev's Theorem {#chebyshev}
+
+### Statement {#cheb-statement}
+
+> **Chebyshev's Theorem:** If $\mu$ and $\sigma$ are the mean and standard deviation of a random variable $X$, then for any $k > 0$:
+>
+> $$\Pr(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}$$
+>
+> Equivalently: $\Pr(\mu - k\sigma < X < \mu + k\sigma) \geq 1 - \dfrac{1}{k^2}$.
+
+This provides a **universal lower bound** on the probability that $X$ lies within $k$ standard deviations of its mean, valid for *any* distribution.
+
+### Proof {#cheb-proof}
+
+By definition:
+
+$$\sigma^2 = E[(X - \mu)^2] = \int_{-\infty}^{\infty}(x-\mu)^2 f(x)\,dx$$
+
+Split the integral into three regions:
+
+$$\sigma^2 \geq \int_{-\infty}^{\mu - k\sigma}(x-\mu)^2 f(x)\,dx + \int_{\mu + k\sigma}^{\infty}(x-\mu)^2 f(x)\,dx$$
+
+Since $(x - \mu)^2 \geq k^2\sigma^2$ in the outer regions:
+
+$$\sigma^2 \geq k^2\sigma^2 \cdot \Pr(|X - \mu| \geq k\sigma)$$
+
+$$\Pr(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}$$
+
+$$\Pr(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2} \quad \square$$
+
+### Example 1 — Beta Distribution {#cheb-ex1}
+
+**Problem:** $X$ has p.d.f. $f(x) = 630x^4(1-x)^4$ for $0 < x < 1$. Compare the exact probability within two standard deviations of the mean to Chebyshev's bound.
+
+**Solution:**
+
+Comparing to the Beta$(\alpha, \beta)$ density, we identify $\alpha = 5$, $\beta = 5$.
+
+$$\mu = E(X) = \frac{\alpha}{\alpha + \beta} = \frac{5}{10} = 0.5$$
+
+$$\sigma^2 = \text{Var}(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} = \frac{25}{100 \times 11} = \frac{1}{44}$$
+
+$$\sigma = \frac{1}{\sqrt{44}} \approx 0.1508$$
+
+The interval within 2 standard deviations: $[0.5 - 2(0.1508),\ 0.5 + 2(0.1508)] = [0.20, 0.80]$.
+
+**Exact probability:**
+
+$$P(0.20 < X < 0.80) = 630\int_{0.20}^{0.80} x^4(1-x)^4\, dx \approx \mathbf{0.96}$$
+
+**Chebyshev bound** (with $k = 2$):
+
+$$1 - \frac{1}{k^2} = 1 - \frac{1}{4} = 0.75$$
+
+> The exact probability $0.96$ is much stronger than Chebyshev's lower bound $0.75$.
+
+### Example 2 — Uniform Distribution {#cheb-ex2}
+
+**Problem:** $X \sim \text{Uniform}(-3, 3)$. With $k = \frac{3}{2}$, find:
+
+- (a) The exact probability
+- (b) The Chebyshev bound
+
+**Solution:**
+
+$$\mu = \frac{-3 + 3}{2} = 0, \qquad \sigma^2 = \frac{(3 - (-3))^2}{12} = \frac{36}{12} = 3, \qquad \sigma = \sqrt{3}$$
+
+With $k = \frac{3}{2}$: $k\sigma = \frac{3}{2}\sqrt{3}$
+
+**Exact probability:**
+
+$$P\!\left(|X| < \frac{3\sqrt{3}}{2}\right) = P\!\left(-\frac{3\sqrt{3}}{2} < X < \frac{3\sqrt{3}}{2}\right) = \frac{1}{6} \cdot 3\sqrt{3} \approx 0.866$$
+
+Actually, since $\frac{3\sqrt{3}}{2} \approx 2.598 < 3$:
+
+$$P = \frac{2 \cdot 2.598}{6} = \frac{5.196}{6} \approx \mathbf{0.866}$$
+
+**Chebyshev bound:**
+
+$$1 - \frac{1}{(3/2)^2} = 1 - \frac{4}{9} = \frac{5}{9} \approx 0.556$$
+
+---
+
+## Exercises — Week 6 {#ex-week6}
+
+1.  **MGF Technique:** If $X_1$ and $X_2$ are independent binomial with parameters $(n_1, \theta)$ and $(n_2, \theta)$, show using MGFs that $Y = X_1 + X_2 \sim \text{Binomial}(n_1 + n_2, \theta)$.
+
+2. If $n$ independent random variables each have Gamma$(\alpha, \beta)$ distributions, find the MGF of their sum and identify the distribution.
+   **Answer:** Gamma$(n\alpha, \beta)$.
+
+3. If $X_i \sim N(\mu_i, \sigma_i^2)$ independently, find the MGF of $Y = \sum X_i$ and identify the distribution.
+   $$Y \sim N\!\left(\sum_{i=1}^n \mu_i,\ \sum_{i=1}^n \sigma_i^2\right)$$
+
+4. Prove the generalization of Theorem 3: if $Y = a_1 X_1 + \cdots + a_n X_n$ with $X_i$ independent, then $M_Y(t) = \prod_{i=1}^n M_{X_i}(a_i t)$.
+
+5. A lawyer receives calls on an unlisted number at rate $2.1$/half-hour and on a listed number at rate $10.9$/half-hour (independent Poisson). Find the probabilities that in half an hour she receives:
+   - (a) 14 calls: **0.1021**
+   - (b) At most 6 calls: **0.0259**
+
+6. (Repeat of fish problem — see Section \@ref(ex-fish) above.)
+
+7. If the time a doctor spends per patient is Exponential$(\lambda = \frac{1}{9})$ (minutes), find the probability the doctor spends at least 20 minutes with:
+   - (a) One patient: $P(X_1 \geq 20) = e^{-20/9} \approx \mathbf{0.1084}$
+   - (b) Two patients: $P(Y \geq 20)$ where $Y \sim \text{Gamma}(2, 1/9)$: **0.3492**
+   - (c) Three patients: $P(Y \geq 20)$ where $Y \sim \text{Gamma}(3, 1/9)$: **0.6168**
+
+8. **Chebyshev:** Find the smallest $k$ such that $P(|X - \mu| < k\sigma) \geq$:
+   - (a) 0.95: $k = \sqrt{20} \approx 4.47$
+   - (b) 0.99: $k = \sqrt{100} = 10$
+
+9. The thiamine content in a bread slice has $\mu = 0.260$ mg, $\sigma = 0.005$ mg. By Chebyshev's theorem, between what values must the thiamine content lie for:
+   - (a) At least $\frac{35}{36}$ of all slices: $[0.230,\ 0.290]$ mg
+   - (b) At least $\frac{143}{144}$ of all slices: $[0.200,\ 0.320]$ mg
+
+10. If $E(X) = 3$ and $E(X^2) = \frac{13}{2}$, use Chebyshev's theorem to find a lower bound for $P(2 < X < 8)$.
+    **Answer:** 0.84
+
+---
+
+*End of STA227 Weeks 4–6 Notes*
+
+# Week 7: Sampling Distribution {#week7}
+
+## Introduction {#introduction}
+
+Statistics concerns itself mainly with conclusions and predictions resulting from chance outcomes that occur in carefully planned experiments or investigations.
+
+In the **finite case**, these chance outcomes constitute a subset, or **sample**, of measurements or observations from a larger set of values called the **population**. In the **continuous case** they are usually identically distributed random variables, whose distribution we refer to as the **population distribution**, or the *infinite population* sampled.
+
+> *Not all samples lend themselves to valid generalizations about the populations from which they came. Most methods of inference are based on the assumption that we are dealing with* ***random samples***.
+
+### Definition 1 – Random Sample
+
+If $X_1, X_2, \ldots, X_n$ are **independent and identically distributed** random variables, we say they constitute a **random sample** from the infinite population given by their common distribution.
+
+If $f(x_1, x_2, \ldots, x_n)$ is the value of the joint distribution, we can write:
+
+$$f(x_1, x_2, \ldots, x_n) = \prod_{i=1}^{n} f(x_i)$$
+
+where $f(x_i)$ is the value of the population distribution at $x_i$.
+
+Statistical inferences are usually based on **statistics** — random variables that are functions of $X_1, X_2, \ldots, X_n$.
+
+### Definition 2 – Sample Mean and Sample Variance
+
+If $X_1, X_2, \ldots, X_n$ constitute a random sample, then:
+
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^{n} X_i \quad \text{(sample mean)}$$
+
+$$S^2 = \frac{\sum_{i=1}^{n}(X_i - \bar{X})^2}{n - 1} \quad \text{(sample variance)}$$
+
+For observed sample data, we calculate $\bar{x}$ and $s^2$; these are values of the corresponding random variables $\bar{X}$ and $S^2$.
+
+---
+
+## The Distribution of the Mean {#distribution-mean}
+
+Since statistics are random variables, their values vary from sample to sample. Their distributions are called **sampling distributions**.
+
+### Theorem 1 – Mean and Variance of $\bar{X}$
+
+If $X_1, X_2, \ldots, X_n$ constitute a random sample from an infinite population with mean $\mu$ and variance $\sigma^2$, then:
+
+$$E(\bar{X}) = \mu \qquad \text{and} \qquad \text{Var}(\bar{X}) = \frac{\sigma^2}{n}$$
+
+**Proof:**
+
+$$E(\bar{X}) = E\!\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \frac{1}{n}\sum_{i=1}^n E(X_i) = \frac{1}{n} \cdot n\mu = \mu$$
+
+$$\text{Var}(\bar{X}) = \text{Var}\!\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \frac{1}{n^2}\sum_{i=1}^n \text{Var}(X_i) = \frac{1}{n^2} \cdot n\sigma^2 = \frac{\sigma^2}{n}$$
+
+> The **standard error of the mean** is $\sigma_{\bar{X}} = \dfrac{\sigma}{\sqrt{n}}$. As $n$ increases, $\sigma_{\bar{X}}$ decreases — larger samples yield $\bar{X}$ values closer to $\mu$.
+
+---
+
+### Theorem 2 – Chebyshev's Bound for $\bar{X}$
+
+For any positive constant $c$, the probability that $\bar{X}$ falls between $\mu - c$ and $\mu + c$ is at least:
+
+$$1 - \frac{\sigma^2}{nc^2}$$
+
+As $n \to \infty$, this probability approaches **1**.
+
+**Proof:**
+
+From Chebyshev's theorem, for any random variable with mean $\mu$ and standard deviation $\sigma$, and any $k > 0$:
+
+$$P(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}$$
+
+Applying this to $\bar{X}$ (which has standard deviation $\sigma/\sqrt{n}$), set $k\sigma_{\bar{X}} = c$, so $k = \dfrac{c\sqrt{n}}{\sigma}$:
+
+$$P(|\bar{X} - \mu| < c) \geq 1 - \frac{\sigma^2}{nc^2}$$
+
+This result is known as the **Law of Large Numbers**. $\blacksquare$
+
+---
+
+## Central Limit Theorem {#clt}
+
+### Theorem 3 – Central Limit Theorem (CLT)
+
+If $X_1, X_2, \ldots, X_n$ constitute a random sample from an infinite population with mean $\mu$, variance $\sigma^2$, and moment-generating function $M_X(t)$, then the **limiting distribution** of:
+
+$$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
+
+as $n \to \infty$ is the **standard normal distribution**.
+
+> **Practical rule:** The CLT approximation is used when $n \geq 30$, regardless of the shape of the population.
+
+> **Important note:** The CLT does *not* say the distribution of $\bar{X}$ becomes normal (since $\text{Var}(\bar{X}) \to 0$). It justifies approximating $\bar{X}$ with a normal having mean $\mu$ and variance $\sigma^2/n$ when $n$ is large.
+
+---
+
+### Example 1 – Soft Drink Vending Machine
+
+A vending machine dispenses drinks with mean $\mu = 200\,\text{ml}$ and standard deviation $\sigma = 15\,\text{ml}$. Find $P(\bar{X} \geq 204)$ for $n = 36$.
+
+**Solution:**
+
+$$\sigma_{\bar{X}} = \frac{15}{\sqrt{36}} = 2.5$$
+
+$$P(\bar{X} \geq 204) = P\!\left(Z \geq \frac{204 - 200}{2.5}\right) = P(Z \geq 1.6)$$
+
+$$= 1 - P(Z \leq 1.6) = 1 - 0.9452 = \boxed{0.0548}$$
+
+---
+
+### Example 2 – Gamma Population
+
+A random sample of size $n = 72$ is taken from:
+
+$$f(x) = \frac{1}{16}x\,e^{-x/4}, \quad x > 0$$
+
+Use the CLT to find $P(\bar{X} > 9)$.
+
+**Solution:**
+
+Identifying this as a Gamma distribution with $\alpha = 2$, $\beta = 4$:
+
+$$E(X) = \alpha\beta = 8, \qquad \text{Var}(X) = \alpha\beta^2 = 32$$
+
+$$P(\bar{X} > 9) = P\!\left(Z > \frac{9 - 8}{\sqrt{32/72}}\right) = P(Z > 1.5) = 1 - 0.9332 = \boxed{0.0668}$$
+
+---
+
+### Theorem 4 – Exact Distribution for Normal Populations
+
+If $\bar{X}$ is the mean of a random sample of size $n$ from a **normal** population with mean $\mu$ and variance $\sigma^2$, then the **exact** sampling distribution is:
+
+$$\bar{X} \sim N\!\left(\mu,\; \frac{\sigma^2}{n}\right)$$
+
+(This holds for *any* $n$, without the CLT approximation.)
+
+---
+
+## Exercises – Week 7 {#exercises-week7}
+
+1. A random sample of size $n = 100$ is taken from a population with $\mu = 75$ and $\sigma^2 = 256$.
+   - **(a)** Using Chebyshev's theorem, find $P(67 < \bar{X} < 83)$. **[Answer: 0.96]**
+   - **(b)** Using the CLT, find $P(67 < \bar{X} < 83)$. **[Answer: 0.9999994]**
+
+2. A random sample of size $n = 81$ is taken from a population with $\mu = 128$ and $\sigma = 6.3$. Find $P(\bar{X} \notin (126.6,\; 129.4))$ using:
+   - **(a)** Chebyshev's theorem. **[At most 0.25]**
+   - **(b)** The CLT. **[0.0456]**
+
+3. A random sample of size 64 from a normal population with $\mu = 51.4$, $\sigma = 6.8$. Find:
+   - **(a)** $P(\bar{X} > 52.9)$ **[0.0388]**
+   - **(b)** $P(50.5 < \bar{X} < 52.3)$ **[0.7108]**
+   - **(c)** $P(\bar{X} < 50.6)$ **[0.1736]**
+
+4. $n = 225$ from an exponential population with $\theta = 4$. Find $P(\bar{X} > 4.5)$ using the CLT.
+
+5. $n = 200$ from a uniform population with $\alpha = 24$, $\beta = 48$. Find $P(\bar{X} < 35)$. **[0.0207]**
+
+6. $n = 100$ from a normal population with $\sigma = 25$. Find $P(|\bar{X} - \mu| \geq 3)$. **[0.2302]**
+
+7. Let $\bar{X}$ be the mean of a random sample of size 100 from a distribution with $\sigma^2 = 50$. Find approximately $P(49 < \bar{X} < 51)$.
+
+8. Let $f(x) = \frac{1}{x^2}$ for $x \geq 1$. For $n = 72$, find approximately the probability that more than 50 items are less than 3. **[0.267]**
+
+9. $\bar{X}$ is the mean of a random sample of size 128 from a Gamma$(\alpha=2, \beta=4)$ distribution. Find approximately $P(7 < \bar{X} < 9)$. **[0.954]**
+
+10. Find the approximate probability that the mean of a sample of size 15 from $f(x) = 3x^2$, $0 < x < 1$, lies between $\frac{3}{5}$ and $\frac{4}{5}$. **[0.840]**
+
+---
+
+# Week 8: The Chi-Square and t-Distributions {#week8}
+
+## The Chi-Square Distribution {#chi-square}
+
+A random variable $X$ has the **Chi-square distribution** with $r$ degrees of freedom if its pdf is:
+
+$$f(x) = \frac{1}{2^{r/2}\,\Gamma(r/2)}\,x^{r/2 - 1}\,e^{-x/2}, \quad x > 0$$
+
+We write $X \sim \chi^2_r$ (or $X$ is $\chi^2_r$).
+
+---
+
+### MGF of the Chi-Square Distribution
+
+$$M_X(t) = (1 - 2t)^{-r/2}, \quad t < \frac{1}{2}$$
+
+**Proof sketch:** Substituting $y = x(1-2t)/2$ into the integral and using the Gamma function identity $\int_0^\infty y^{r/2-1}e^{-y}\,dy = \Gamma(r/2)$ gives the result above.
+
+---
+
+### Mean and Variance of the Chi-Square Distribution
+
+Differentiating $M_X(t) = (1-2t)^{-r/2}$:
+
+$$E(X) = r \qquad \text{and} \qquad \text{Var}(X) = 2r$$
+
+---
+
+### Theorem 5 – Square of Standard Normal
+
+If $Z \sim N(0,1)$, then $Z^2 \sim \chi^2_1$.
+
+**Proof:** The MGF of $Z^2$ is derived as $(1-2t)^{-1/2}$, which is the MGF of $\chi^2_1$. $\blacksquare$
+
+---
+
+### Theorem 6 – Sum of Squared Standard Normals
+
+If $X_1, X_2, \ldots, X_n$ are independent $N(0,1)$ random variables, then:
+
+$$Y = \sum_{i=1}^{n} X_i^2 \sim \chi^2_n$$
+
+**Proof:** By Theorem 5 each $X_i^2 \sim \chi^2_1$, and since they are independent:
+
+$$M_Y(t) = \prod_{i=1}^n (1-2t)^{-1/2} = (1-2t)^{-n/2}$$
+
+which is the MGF of $\chi^2_n$. $\blacksquare$
+
+---
+
+### Theorem 7 – Reproductive Property
+
+If $X_1, \ldots, X_n$ are independent with $X_i \sim \chi^2_{r_i}$, then:
+
+$$Y = \sum_{i=1}^n X_i \sim \chi^2_{r_1 + r_2 + \cdots + r_n}$$
+
+---
+
+### Theorem 8 – Difference of Chi-Square Variables
+
+If $X_1$ and $X_2$ are independent, $X_1 \sim \chi^2_{r_1}$, and $X_1 + X_2 \sim \chi^2_{r_1+r}$, then $X_2 \sim \chi^2_r$.
+
+---
+
+### Theorem 9 – Sample Mean and Variance from a Normal Population
+
+If $\bar{X}$ and $S^2$ are the mean and variance of a random sample of size $n$ from $N(\mu, \sigma^2)$, then:
+
+**(a)** $\bar{X}$ and $S^2$ are **independent**.
+
+**(b)** $\dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$
+
+**Proof of (b):** Using the identity:
+
+$$\sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma^2} = \frac{(n-1)S^2}{\sigma^2} + \left(\frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\right)^2$$
+
+The left side is $\chi^2_n$ (by Theorem 6). The second term on the right is $\chi^2_1$ (by Theorems 4 and 5). By Theorem 8, $\dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$. $\blacksquare$
+
+---
+
+### Example 2 – Semiconductor Thickness
+
+A manufacturing process is "in control" if $\sigma \leq 0.60$ thousandths of an inch. For $n = 20$, the process is declared "out of control" if $\dfrac{(n-1)S^2}{\sigma^2} \geq \chi^2_{0.01,\,19} = 36.191$.
+
+With $S = 0.84$, $\sigma = 0.60$:
+
+$$\frac{(n-1)S^2}{\sigma^2} = \frac{19 \times (0.84)^2}{(0.60)^2} = 37.24 > 36.191$$
+
+**Conclusion:** Reject $H_0$; the process is **out of control**.
+
+---
+
+## The t-Distribution {#t-distribution}
+
+Although $Z = \dfrac{\bar{X} - \mu}{\sigma/\sqrt{n}} \sim N(0,1)$ is elegant, in practice $\sigma$ is usually **unknown** and must be replaced by the sample standard deviation $S$.
+
+### Theorem 10 – Definition of the t-Distribution
+
+If $Y \sim \chi^2_r$ and $Z \sim N(0,1)$ are independent, then:
+
+$$T = \frac{Z}{\sqrt{Y/r}}$$
+
+has the **t-distribution** with $r$ degrees of freedom, with pdf:
+
+$$f(t) = \frac{\Gamma\!\left(\frac{r+1}{2}\right)}{\sqrt{r\pi}\;\Gamma\!\left(\frac{r}{2}\right)} \left(1 + \frac{t^2}{r}\right)^{-(r+1)/2}, \quad -\infty < t < \infty$$
+
+> Originally introduced by **W.S. Gosset** under the pen-name **"Student"** (his employer, a brewery, did not permit employee publications). Hence also known as **Student's t-distribution**.
+
+---
+
+### Theorem 11 – t-Statistic for a Normal Sample
+
+If $\bar{X}$ and $S^2$ are the mean and variance of a random sample of size $n$ from $N(\mu, \sigma^2)$, then:
+
+$$T = \frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}$$
+
+**Proof:** By Theorem 9, set $Z = \dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}} \sim N(0,1)$ and $Y = \dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$, which are independent. Substituting into Theorem 10:
+
+$$T = \frac{Z}{\sqrt{Y/(n-1)}} = \frac{(\bar{X}-\mu)/(\sigma/\sqrt{n})}{\sqrt{(n-1)S^2/[\sigma^2(n-1)]}} = \frac{\bar{X}-\mu}{S/\sqrt{n}} \sim t_{n-1} \quad \blacksquare$$
+
+---
+
+### Example 3 – Gasoline Consumption
+
+In 16 one-hour test runs, an engine averaged $\bar{x} = 16.4$ gallons with $s = 2.1$ gallons. Test the claim that $\mu = 12.0$ gallons per hour.
+
+**Solution:**
+
+$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.4 - 12.0}{2.1/\sqrt{16}} = \frac{4.4}{0.525} = 8.38$$
+
+From t-tables: $t_{0.005,\,15} = 2.947$.
+
+Since $8.38 > 2.947$, we **reject the claim**. The true average consumption exceeds 12.0 gallons per hour.
+
+---
+
+# Week 9: The F-Distribution {#week9}
+
+## The F-Distribution {#f-distribution}
+
+The **F-distribution** is named after **Sir Ronald A. Fisher**, one of the most prominent statisticians of the 20th century. It was originally studied as the sampling distribution of the ratio of two independent chi-square random variables, each divided by its degrees of freedom.
+
+### Theorem 12 – Definition of the F-Distribution
+
+If $U \sim \chi^2_{n_1}$ and $V \sim \chi^2_{n_2}$ are **independent**, then:
+
+$$F = \frac{U/n_1}{V/n_2}$$
+
+has an **F-distribution** with $n_1$ and $n_2$ degrees of freedom, with pdf:
+
+$$g(f) = \frac{\Gamma\!\left(\frac{n_1+n_2}{2}\right)}{\Gamma\!\left(\frac{n_1}{2}\right)\Gamma\!\left(\frac{n_2}{2}\right)} \left(\frac{n_1}{n_2}\right)^{n_1/2} \frac{f^{n_1/2 - 1}}{\left(1 + \dfrac{n_1}{n_2}f\right)^{(n_1+n_2)/2}}, \quad f > 0$$
+
+**Proof:** Apply the change-of-variable $f = \dfrac{un_2}{vn_1}$ to the joint density of $U$ and $V$, then integrate out $v$ using the substitution $w = v\!\left(1 + \dfrac{n_1}{n_2}f\right)/2$. $\blacksquare$
+
+---
+
+## Mean and Variance of the F-Distribution {#f-mean-variance}
+
+Let $X \sim F(m, n)$. Then:
+
+$$E(X) = \frac{n}{n-2}, \quad n > 2$$
+
+$$\text{Var}(X) = \frac{2n^2(m+n-2)}{m(n-2)^2(n-4)}, \quad n > 4$$
+
+**Proof sketch:**
+
+Write $X = \dfrac{U/m}{V/n}$ where $U \sim \chi^2_m$ and $V \sim \chi^2_n$ are independent.
+
+$$E(X) = \frac{n}{m} E(U) \cdot E\!\left(\frac{1}{V}\right) = \frac{n}{m} \cdot m \cdot \frac{1}{n-2} = \frac{n}{n-2}$$
+
+since $E(1/V) = 1/(n-2)$ for $V \sim \chi^2_n$ (obtained by substitution in the integral). Similarly, $E(1/V^2) = 1/[(n-2)(n-4)]$ for $n > 4$, which yields the variance formula. $\blacksquare$
+
+---
+
+## Applications of the F-Distribution {#f-applications}
+
+The F-distribution arises naturally when **comparing variances** $\sigma_1^2$ and $\sigma_2^2$ of two normal populations.
+
+### Theorem 13 – Ratio of Sample Variances
+
+If $S_1^2$ and $S_2^2$ are the variances of **independent** random samples of sizes $n_1$ and $n_2$ from $N(\mu_1, \sigma_1^2)$ and $N(\mu_2, \sigma_2^2)$ respectively, then:
+
+$$F = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F(n_1-1,\; n_2-1)$$
+
+**Proof:** By Theorem 9, $\dfrac{(n_1-1)S_1^2}{\sigma_1^2} \sim \chi^2_{n_1-1}$ and $\dfrac{(n_2-1)S_2^2}{\sigma_2^2} \sim \chi^2_{n_2-1}$, independently. Substituting into Theorem 12 gives the result. $\blacksquare$
+
+> The F-table gives critical values $f_\alpha(n_1, n_2)$ such that $P(F > f_\alpha) = \alpha$ for specified degrees of freedom.
+
+---
+
+## Exercises – Weeks 8 & 9 {#exercises-weeks89}
+
+1. Use Theorem 9 to show that for random samples of size $n$ from $N(\mu, \sigma^2)$, the sampling distribution of $S^2$ has mean $\sigma^2$ and variance $\dfrac{2\sigma^4}{n-1}$.
+
+2. Show that if $X_1, X_2, \ldots, X_n$ are independent $\chi^2_1$ and $Y_n = X_1 + X_2 + \cdots + X_n$, then the limiting distribution of:
+$$Z_n = \frac{Y_n - n}{\sqrt{2n}}$$
+is $N(0,1)$ as $n \to \infty$.
+
+3. Using Exercise 2, show that if $X \sim \chi^2_n$ with large $n$, then:
+$$\frac{X - n}{\sqrt{2n}} \approx N(0,1)$$
+
+4. Use Exercise 3 to find the approximate probability that a $\chi^2_{50}$ random variable exceeds **68.0**.
+
+5. Show that for $n > 2$, the variance of the $t$-distribution with $n$ degrees of freedom is $\dfrac{n}{n-2}$. *(Hint: substitute $t = \sqrt{\dfrac{n}{1-u^2}} \cdot \text{sign}(t)$)*
+
+6. Verify that if $T \sim t_n$, then $T^2 \sim F(1, n)$.
+
+7. Verify that if $X \sim F(n_1, n_2)$ and $n_2 \to \infty$, the distribution of $Y = n_1 X$ approaches $\chi^2_{n_1}$.
+
+8. If $X \sim F(n_1, n_2)$, show that $Y = \dfrac{1}{X} \sim F(n_2, n_1)$.
+
+9. Verify that if $Y$ has a Beta distribution with $\alpha = \dfrac{n_1}{2}$ and $\beta = \dfrac{n_2}{2}$, then:
+$$X = \frac{n_2 Y}{n_1(1-Y)} \sim F(n_1, n_2)$$
+
+---
+
+*End of STA227 Weeks 7–9 Notes*
+
+# Week 10: Order Statistics {#week10}
+
+## Introduction {#intro-order}
+
+Consider a random sample of size $n$ from an infinite population with a **continuous density**, and suppose we arrange the values $X_1, X_2, \ldots, X_n$ according to size.
+
+- The **smallest** value is the random variable $Y_1$
+- The **second smallest** is $Y_2$
+- $\vdots$
+- The **largest** is $Y_n$
+
+These $Y$'s are called **order statistics**. In particular, $Y_r$ is called the $r^{\text{th}}$ order statistic.
+
+> *We restrict to infinite populations with continuous densities so there is zero probability that any two sample values are equal.*
+
+### Case $n = 2$
+
+$$y_1 = x_1,\; y_2 = x_2 \quad \text{when } x_1 < x_2$$
+$$y_1 = x_2,\; y_2 = x_1 \quad \text{when } x_2 < x_1$$
+
+### Case $n = 3$
+
+| Condition | $y_1$ | $y_2$ | $y_3$ |
+|:---|:---:|:---:|:---:|
+| $x_1 < x_2 < x_3$ | $x_1$ | $x_2$ | $x_3$ |
+| $x_1 < x_3 < x_2$ | $x_1$ | $x_3$ | $x_2$ |
+| $x_2 < x_1 < x_3$ | $x_2$ | $x_1$ | $x_3$ |
+
+---
+
+## Theorem 14 – pdf of the $r^{\text{th}}$ Order Statistic {#theorem14}
+
+For random samples of size $n$ from an infinite population with pdf $f(x)$, the probability density of the $r^{\text{th}}$ order statistic $Y_r$ is:
+
+$$g_r(y_r) = \frac{n!}{(r-1)!\,(n-r)!} \left[\int_{-\infty}^{y_r} f(x)\,dx\right]^{r-1} f(y_r) \left[\int_{y_r}^{\infty} f(x)\,dx\right]^{n-r}$$
+
+**Proof:**
+
+Divide the real line into three intervals:
+
+1. $(-\infty,\; y_r)$
+2. $[y_r,\; y_r + h)$ for small $h > 0$
+3. $[y_r + h,\; \infty)$
+
+By the **multinomial distribution**, the probability that $r-1$ sample values fall in interval 1, exactly one falls in interval 2, and $n-r$ fall in interval 3 is:
+
+$$\frac{n!}{(r-1)!\,1!\,(n-r)!} \left[\int_{-\infty}^{y_r} f(x)\,dx\right]^{r-1} \left[\int_{y_r}^{y_r+h} f(x)\,dx\right] \left[\int_{y_r+h}^{\infty} f(x)\,dx\right]^{n-r}$$
+
+By the **law of the mean** from calculus:
+$$\int_{y_r}^{y_r+h} f(x)\,dx \approx f(y_r)\cdot h$$
+
+Dividing by $h$ and letting $h \to 0$ yields the formula above. $\blacksquare$
+
+---
+
+## Special Cases {#special-cases}
+
+### Smallest Value $Y_1$
+
+$$g_1(y_1) = n\,f(y_1)\left[\int_{y_1}^{\infty} f(x)\,dx\right]^{n-1}$$
+
+### Largest Value $Y_n$
+
+$$g_n(y_n) = n\,f(y_n)\left[\int_{-\infty}^{y_n} f(x)\,dx\right]^{n-1}$$
+
+### Sample Median (odd $n = 2m+1$)
+
+The sample median $\tilde{X} = Y_{m+1}$, with sampling distribution:
+
+$$h(\tilde{x}) = \frac{(2m+1)!}{m!\,m!} \left[\int_{-\infty}^{\tilde{x}} f(x)\,dx\right]^{m} f(\tilde{x}) \left[\int_{\tilde{x}}^{\infty} f(x)\,dx\right]^{m}$$
+
+> For samples of size $n = 2m$, the median is defined as $\dfrac{Y_m + Y_{m+1}}{2}$.
+
+---
+
+## Example 4 – Exponential Population {#example4}
+
+Show that for random samples of size $n$ from an **exponential** population with parameter $\theta$:
+
+$$f(x) = \frac{1}{\theta}e^{-x/\theta}, \quad x > 0$$
+
+the sampling distributions of $Y_1$, $Y_n$, and the median are as derived below.
+
+### Distribution of $Y_1$ (Minimum)
+
+$$\int_{y_1}^{\infty} f(x)\,dx = \int_{y_1}^{\infty} \frac{1}{\theta}e^{-x/\theta}\,dx = e^{-y_1/\theta}$$
+
+Substituting into the formula for $g_1$:
+
+$$g_1(y_1) = n \cdot \frac{1}{\theta}e^{-y_1/\theta} \cdot \left(e^{-y_1/\theta}\right)^{n-1} = \frac{n}{\theta}e^{-ny_1/\theta}$$
+
+$$\boxed{g_1(y_1) = \frac{n}{\theta}\,e^{-ny_1/\theta}, \quad y_1 > 0}$$
+
+This is an **exponential distribution** with parameter $\theta/n$.
+
+---
+
+### Distribution of $Y_n$ (Maximum)
+
+$$\int_{0}^{y_n} f(x)\,dx = 1 - e^{-y_n/\theta}$$
+
+Substituting into the formula for $g_n$:
+
+$$g_n(y_n) = n \cdot \frac{1}{\theta}e^{-y_n/\theta} \cdot \left(1 - e^{-y_n/\theta}\right)^{n-1}$$
+
+$$\boxed{g_n(y_n) = \frac{n}{\theta}\,e^{-y_n/\theta}\!\left(1 - e^{-y_n/\theta}\right)^{n-1}, \quad y_n > 0}$$
+
+---
+
+### Distribution of the Median ($n = 2m+1$)
+
+Computing the required integrals:
+
+$$\int_{-\infty}^{\tilde{x}} f(x)\,dx = 1 - e^{-\tilde{x}/\theta}, \qquad \int_{\tilde{x}}^{\infty} f(x)\,dx = e^{-\tilde{x}/\theta}$$
+
+Substituting:
+
+$$h(\tilde{x}) = \frac{(2m+1)!}{m!\,m!} \cdot \left(1 - e^{-\tilde{x}/\theta}\right)^m \cdot \frac{1}{\theta}e^{-\tilde{x}/\theta} \cdot \left(e^{-\tilde{x}/\theta}\right)^m$$
+
+$$\boxed{h(\tilde{x}) = \frac{(2m+1)!}{m!\,m!}\,\frac{1}{\theta}\,e^{-(m+1)\tilde{x}/\theta}\!\left(1 - e^{-\tilde{x}/\theta}\right)^m, \quad \tilde{x} > 0}$$
+
+---
+
+## Theorem 15 – Asymptotic Distribution of the Median {#theorem15}
+
+For large $n$, the sampling distribution of the median for random samples of size $2n+1$ is approximately **normal** with:
+
+$$\text{Mean} = \tilde{\mu}, \qquad \text{Variance} = \frac{1}{8n\,[f(\tilde{\mu})]^2}$$
+
+where $\tilde{\mu}$ is the population median satisfying $\displaystyle\int_{-\infty}^{\tilde{\mu}} f(x)\,dx = \tfrac{1}{2}$.
+
+**Comparison with the Mean (Normal Population):**
+
+For samples of size $2n+1$ from a normal population, $\tilde{\mu} = \mu$ and $f(\tilde{\mu}) = \dfrac{1}{\sigma\sqrt{2\pi}}$, giving:
+
+| Statistic | Variance |
+|:---|:---:|
+| Mean $\bar{X}$ | $\dfrac{\sigma^2}{2n+1}$ |
+| Median $\tilde{X}$ | $\dfrac{\pi\sigma^2}{4n} \approx \dfrac{\sigma^2}{2n} \cdot \dfrac{\pi}{2}$ |
+
+> **Conclusion:** For large samples from normal populations, the **mean is more reliable** than the median — it has smaller variance (less sampling variability).
+
+---
+
+## Exercises – Week 10 {#exercises-week10}
+
+1. Find the sampling distributions of $Y_1$ and $Y_n$ for random samples of size $n$ from a **continuous uniform** population on $[0, 1]$.
+
+2. Find the sampling distribution of the median for random samples of size $2m+1$ from the population of Exercise 1.
+$$h(\tilde{x}) = \frac{(2m+1)!}{m!\,m!}\,\tilde{x}^m(1-\tilde{x})^m, \quad 0 < \tilde{x} < 1$$
+
+3. Find the **mean** and **variance** of $Y_1$ for random samples of size $n$ from the population of Exercise 1.
+
+4. Find the sampling distributions of $Y_1$ and $Y_n$ for random samples of size $n$ from a **Beta distribution** with $\alpha = 3$, $\beta = 2$.
+$$g_1(y_1) = 12n\,y_1^2(1-y_1)(1 - 4y_1^3 + 3y_1^4)^{n-1}, \quad 0 < y_1 < 1$$
+
+5. Find the sampling distribution of the median for random samples of size $2m+1$ from the population of Exercise 4.
+
+6. Show that the **joint density** of $Y_1$ and $Y_n$ is:
+$$g(y_1, y_n) = n(n-1)\,f(y_1)\,f(y_n)\left[\int_{y_1}^{y_n} f(x)\,dx\right]^{n-2}, \quad y_1 < y_n$$
+
+   **(a)** Use this to find the joint density of $Y_1$ and $Y_n$ for an exponential population.
+
+   **(b)** Use this to find the joint density of $Y_1$ and $Y_n$ for the uniform population of Exercise 1.
+
+7. Using part (b) of Exercise 6, find $\text{Cov}(Y_1, Y_n)$.
+$$\text{Cov}(Y_1, Y_n) = \frac{1}{(n+1)^2(n+2)}$$
+
+8. Use the joint density of $Y_1$ and $Y_n$ from Exercise 6 and the **transformation technique** to find an expression for the joint density of $Y_1$ and the sample range $R = Y_n - Y_1$.
+
+9. Using Exercise 8 and part (a) of Exercise 6, find the sampling distribution of $R$ for random samples of size $n$ from an **exponential population**.
+$$f(R) = \frac{n(n-1)}{\theta^2}\,e^{-R/\theta}\!\left(1 - e^{-R/\theta}\right)^{n-2} \cdot \frac{1}{n-1}, \quad R > 0$$
+
+10. Use Exercise 8 to find the sampling distribution of $R$ for random samples of size $n$ from the **continuous uniform** population of Exercise 1.
+
+11. Use the result of Exercise 10 to find the **mean** and **variance** of $R$:
+$$E(R) = \frac{n-1}{n+1}, \qquad \text{Var}(R) = \frac{2(n-1)}{(n+1)^2(n+2)}$$
+
+---
+
+# Week 11: Characteristic Functions {#week11}
+
+## Introduction {#intro-cf}
+
+In more advanced settings, the **moment-generating function** (MGF) is not always used because many distributions do not have MGFs. Instead, we use the **characteristic function**, which exists for *every* distribution.
+
+> Let $i$ denote the imaginary unit and $t$ an arbitrary real number.
+
+### Definition – Characteristic Function
+
+If $X$ is a random variable, its **characteristic function** is $\varphi_X : \mathbb{R} \to \mathbb{C}$, defined as:
+
+$$\varphi_X(t) = E\!\left(e^{itX}\right) = \begin{cases} \displaystyle\sum_x e^{itx} P(X = x) & \text{if } X \text{ is discrete} \\[8pt] \displaystyle\int_{-\infty}^{\infty} e^{itx} f(x)\,dx & \text{if } X \text{ is continuous} \end{cases}$$
+
+This expectation **exists for all $t$** (since $|e^{itx}| = 1$).
+
+---
+
+## Properties of Characteristic Functions {#properties}
+
+### 1. Uniqueness
+
+$X$ and $Y$ have the same characteristic function **if and only if** they have the same distribution function.
+
+### 2. Moment Generation
+
+If $E(X^n)$ exists, then the $n^{\text{th}}$ derivative of $\varphi_X(t)$ exists and:
+
+$$\varphi_X^{(n)}(t) = i^n\,E\!\left(X^n e^{itX}\right)$$
+
+In particular, at $t = 0$:
+
+$$E(X^k) = \frac{\varphi_X^{(k)}(0)}{i^k}$$
+
+**Proof:**
+
+$$\frac{d}{dt}\varphi_X(t) = \frac{d}{dt}E\!\left(e^{itX}\right) = E\!\left(\frac{d}{dt}e^{itX}\right) = E\!\left(iX e^{itX}\right) = iE\!\left(Xe^{itX}\right)$$
+
+$$\frac{d^2}{dt^2}\varphi_X(t) = i\frac{d}{dt}E\!\left(Xe^{itX}\right) = i\,E\!\left(iX^2 e^{itX}\right) = i^2 E\!\left(X^2 e^{itX}\right)$$
+
+By induction, $\varphi_X^{(n)}(t) = i^n E(X^n e^{itX})$. $\blacksquare$
+
+### 3. Taylor Expansion
+
+If $E(X^n)$ exists:
+
+$$\varphi_X(t) = \sum_{j=0}^{n} \frac{(it)^j}{j!} E(X^j) + o_n(t)$$
+
+where $o_n(t)$ satisfies $\displaystyle\lim_{t \to 0} \dfrac{o_n(t)}{t^n} = 0$.
+
+---
+
+## Mean and Variance via Characteristic Functions {#mean-variance-cf}
+
+From Property 2, evaluating derivatives at $t = 0$:
+
+$$\boxed{E(X) = \frac{\varphi_X'(0)}{i}}$$
+
+$$\boxed{\text{Var}(X) = \frac{\varphi_X''(0)}{i^2} - \left[\frac{\varphi_X'(0)}{i}\right]^2 = -\varphi_X''(0) - \left[E(X)\right]^2}$$
+
+> **Connection to MGF:** For distributions that have an MGF $M_X(t)$, we have $\varphi_X(t) = M_X(it)$.
+
+---
+
+## Example 1 – Binomial Distribution {#example1-binomial}
+
+Let $X \sim \text{Binomial}(n, p)$ with $q = 1 - p$.
+
+### (a) Characteristic Function
+
+$$\varphi_X(t) = E\!\left(e^{itX}\right) = \sum_{x=0}^{n} e^{itx}\binom{n}{x}p^x q^{n-x}$$
+
+$$= \sum_{x=0}^{n} \binom{n}{x}(pe^{it})^x q^{n-x} = \left(q + pe^{it}\right)^n$$
+
+by the **Binomial Theorem** with $a = q$ and $b = pe^{it}$.
+
+$$\boxed{\varphi_X(t) = \left(q + pe^{it}\right)^n}$$
+
+### (b) Mean and Variance
+
+**First derivative:**
+
+$$\varphi_X'(t) = n\left(q + pe^{it}\right)^{n-1} \cdot pi e^{it}$$
+
+At $t = 0$, $q + p = 1$:
+
+$$\varphi_X'(0) = npi \implies E(X) = \frac{npi}{i} = np$$
+
+**Second derivative** (using the product rule):
+
+$$\varphi_X''(t) = n(n-1)\left(q + pe^{it}\right)^{n-2}(pie^{it})^2 + n\left(q + pe^{it}\right)^{n-1} \cdot pi^2 e^{it}$$
+
+At $t = 0$:
+
+$$\varphi_X''(0) = n(n-1)p^2 i^2 + npi^2 = -n(n-1)p^2 - np$$
+
+**Variance:**
+
+$$\text{Var}(X) = \frac{\varphi_X''(0)}{i^2} - [E(X)]^2 = \frac{-n(n-1)p^2 - np}{-1} - n^2p^2$$
+
+$$= n(n-1)p^2 + np - n^2p^2 = np - np^2 = np(1-p) = npq$$
+
+$$\boxed{E(X) = np, \qquad \text{Var}(X) = npq}$$
+
+---
+
+## Example 2 – Exponential Distribution {#example2-exponential}
+
+Let $X \sim \text{Exponential}(\theta)$ with $f(x) = \dfrac{1}{\theta}e^{-x/\theta}$, $x > 0$.
+
+### (a) Characteristic Function
+
+$$\varphi_X(t) = \int_0^{\infty} e^{itx} \cdot \frac{1}{\theta} e^{-x/\theta}\,dx = \frac{1}{\theta}\int_0^{\infty} e^{-x(1/\theta - it)}\,dx$$
+
+$$= \frac{1}{\theta} \cdot \frac{1}{1/\theta - it} = \frac{1}{1 - i\theta t}$$
+
+$$\boxed{\varphi_X(t) = \frac{1}{1 - i\theta t}}$$
+
+### (b) Mean and Variance
+
+**First derivative:**
+
+$$\varphi_X'(t) = \frac{i\theta}{(1-i\theta t)^2}$$
+
+At $t = 0$: $\varphi_X'(0) = i\theta$, so:
+
+$$E(X) = \frac{i\theta}{i} = \theta$$
+
+**Second derivative:**
+
+$$\varphi_X''(t) = \frac{2(i\theta)^2}{(1-i\theta t)^3} = \frac{-2\theta^2}{(1-i\theta t)^3}$$
+
+At $t = 0$: $\varphi_X''(0) = -2\theta^2$, so:
+
+$$\text{Var}(X) = \frac{-2\theta^2}{i^2} - \theta^2 = 2\theta^2 - \theta^2 = \theta^2$$
+
+$$\boxed{E(X) = \theta, \qquad \text{Var}(X) = \theta^2}$$
+
+---
+
+## Exercises – Week 11 {#exercises-week11}
+
+For each distribution below, **(a)** find the characteristic function, and **(b)** derive the mean and variance.
+
+**1. Discrete Uniform** — $P(X = x) = \dfrac{1}{N}$ for $x = 0, 1, \ldots, N-1$.
+
+$$\varphi_X(t) = \frac{1}{N} \cdot \frac{1 - e^{iNt}}{1 - e^{it}}, \qquad E(X) = \frac{N-1}{2}, \qquad \text{Var}(X) = \frac{N^2-1}{12}$$
+
+**2. Poisson** — $P(X = x) = \dfrac{e^{-\lambda}\lambda^x}{x!}$ for $x = 0, 1, 2, \ldots$
+
+$$\varphi_X(t) = e^{\lambda(e^{it}-1)}, \qquad E(X) = \lambda, \qquad \text{Var}(X) = \lambda$$
+
+**3. Continuous Uniform** — $f(x) = \dfrac{1}{b-a}$ for $a < x < b$.
+
+$$\varphi_X(t) = \frac{e^{ibt} - e^{iat}}{it(b-a)}, \qquad E(X) = \frac{a+b}{2}, \qquad \text{Var}(X) = \frac{(b-a)^2}{12}$$
+
+**4. Chi-Squared** — $X \sim \chi^2_n$.
+
+$$\varphi_X(t) = (1 - 2it)^{-n/2}, \qquad E(X) = n, \qquad \text{Var}(X) = 2n$$
+
+**5. Normal** — $X \sim N(\mu, \sigma^2)$.
+
+$$\varphi_X(t) = e^{i\mu t - \sigma^2 t^2/2}, \qquad E(X) = \mu, \qquad \text{Var}(X) = \sigma^2$$
+
+---
+
+*End of STA227 Weeks 10–11 Notes*
+
+
+
